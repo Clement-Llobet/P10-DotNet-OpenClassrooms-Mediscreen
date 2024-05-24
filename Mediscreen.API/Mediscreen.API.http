@@ -1,0 +1,6 @@
+@Mediscreen.API_HostAddress = http://localhost:5047
+
+GET {{Mediscreen.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
