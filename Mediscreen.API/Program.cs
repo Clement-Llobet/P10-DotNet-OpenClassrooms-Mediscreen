@@ -1,4 +1,6 @@
 using Mediscreen.Infrastructure.Config;
+using Mediscreen.Infrastructure.SqlServerDatabase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,12 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.GetService<IServiceScopeFactory>()!.CreateScope())
+{
+    var californianHealthContext = serviceScope.ServiceProvider.GetRequiredService<MediscreenSqlServerContext>();
+    californianHealthContext.Database.Migrate();
+}
 
 if (app.Environment.IsDevelopment())
 {

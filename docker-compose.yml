@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  mediscreen.sqlserverdatabase:
+    container_name: mediscreen.sqlserverdatabase
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    environment:
+       - ACCEPT_EULA=Y
+       - MSSQL_SA_PASSWORD=Passw0rd!
+    volumes:
+       - sqlserver_data:/var/opt/mssql
+    ports:
+      - 8001:1433
+
+  mediscreen.api:
+    container_name: mediscreen.api
+    image: ${DOCKER_REGISTRY-}mediscreenapi
+    build:
+      context: .
+      dockerfile: Mediscreen.API/Dockerfile
+    depends_on:
+       - mediscreen.sqlserverdatabase
+
+volumes:
+  sqlserver_data:
