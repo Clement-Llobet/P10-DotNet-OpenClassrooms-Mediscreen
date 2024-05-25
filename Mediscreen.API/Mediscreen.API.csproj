@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Mediscreen.Infrastructure\Mediscreen.Infrastructure.csproj" />
   </ItemGroup>
 

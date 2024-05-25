@@ -1,6 +1,4 @@
 ﻿using Mediscreen.Domain.Patient.Contracts;
-using System.Collections;
-using System.Linq.Expressions;
 
 namespace Mediscreen.Infrastructure.SqlServerDatabase.Repositories;
 

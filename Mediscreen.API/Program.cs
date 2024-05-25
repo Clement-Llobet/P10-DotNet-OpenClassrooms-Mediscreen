@@ -1,3 +1,4 @@
+using Mediscreen.API.Endpoints;
 using Mediscreen.Infrastructure.Config;
 using Mediscreen.Infrastructure.SqlServerDatabase;
 using Microsoft.EntityFrameworkCore;
@@ -34,10 +35,19 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors(policy =>
+{
+    policy.AllowAnyOrigin();
+    policy.AllowAnyHeader();
+    policy.AllowAnyMethod();
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapPatients();
 
 app.Run();
