@@ -4,6 +4,7 @@ namespace Mediscreen.Domain.Patient.Dto;
 
 public record PatientOutput
 {
+    public required int Id { get; set; }
     public required string FirstName { get; set; } = string.Empty;
     public required string LastName { get; set; } = string.Empty;
     public required DateTime BirthDate { get; set; }
@@ -15,6 +16,7 @@ public record PatientOutput
     {
         return new PatientOutput
         {
+            Id = patient.Id,
             FirstName = patient.FirstName,
             LastName = patient.LastName,
             BirthDate = patient.BirthDate,
