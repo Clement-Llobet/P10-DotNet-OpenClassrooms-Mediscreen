@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mediscreen.Infrastructure.SqlServerDatabase;
 
-public class MediscreenSqlServerContext : DbContext
+public class MediscreenSqlServerContext(DbContextOptions<MediscreenSqlServerContext> options) : DbContext(options)
 {
-    public MediscreenSqlServerContext(DbContextOptions<MediscreenSqlServerContext> options) : base(options)
-    { }
+    public PatientRepository PatientRepository => new(Set<Patient>());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

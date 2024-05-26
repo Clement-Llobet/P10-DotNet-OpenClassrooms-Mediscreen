@@ -1,4 +1,5 @@
 using Mediscreen.API.Endpoints;
+using Mediscreen.Domain.Patient.Contracts;
 using Mediscreen.Infrastructure.Config;
 using Mediscreen.Infrastructure.SqlServerDatabase;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,14 @@ var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlSe
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
+builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
+builder.Services.AddScoped<IPatientRepository>(provider => provider.GetRequiredService<MediscreenSqlServerContext>().PatientRepository);
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mediscreen", Version = "v1" });
 });
 
-builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
 
 var app = builder.Build();
 
@@ -43,11 +46,8 @@ app.UseCors(policy =>
 });
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-app.MapControllers();
-
-app.MapPatients();
+app.MapPatientsEndpoints();
 
 app.Run();

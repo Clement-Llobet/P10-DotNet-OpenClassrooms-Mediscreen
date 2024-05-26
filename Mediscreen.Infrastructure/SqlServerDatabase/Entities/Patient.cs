@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mediscreen.Domain.Patient.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 
-public class Patient
+public class Patient : IPatient
 {
     public int Id { get; set; }
     public required string FirstName { get; set; } = string.Empty;
