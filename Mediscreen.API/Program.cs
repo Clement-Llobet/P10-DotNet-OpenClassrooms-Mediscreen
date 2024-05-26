@@ -2,6 +2,7 @@ using Mediscreen.API.Endpoints;
 using Mediscreen.Domain.Patient.Contracts;
 using Mediscreen.Infrastructure.Config;
 using Mediscreen.Infrastructure.SqlServerDatabase;
+using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -14,6 +15,10 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
 builder.Services.AddScoped<IPatientRepository>(provider => provider.GetRequiredService<MediscreenSqlServerContext>().PatientRepository);
+builder.Services.AddTransient<BogusDatasGenerator>();
+//var bogusDatasGenerator = builder.Services.GetRequiredService<BogusDatasGenerator>();
+//var patients = bogusDatasGenerator.GeneratePatient();
+
 
 builder.Services.AddSwaggerGen(c =>
 {
