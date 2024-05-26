@@ -16,8 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
 builder.Services.AddScoped<IPatientRepository>(provider => provider.GetRequiredService<MediscreenSqlServerContext>().PatientRepository);
 builder.Services.AddTransient<BogusDatasGenerator>();
-//var bogusDatasGenerator = builder.Services.GetRequiredService<BogusDatasGenerator>();
-//var patients = bogusDatasGenerator.GeneratePatient();
 
 
 builder.Services.AddSwaggerGen(c =>
