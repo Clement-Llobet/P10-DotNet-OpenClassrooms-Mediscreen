@@ -11,4 +11,11 @@ public static class PatientManager
 
         return request.Select(PatientOutput.Render).ToList();
     }
+
+    public static PatientOutput GetPatient(IPatientRepository patientRepository, int id)
+    {
+        var request = patientRepository.FirstOrDefault(x => x.Id == id);
+
+        return request == null ? throw new Exception("Patient not found") : PatientOutput.Render(request);
+    }
 }

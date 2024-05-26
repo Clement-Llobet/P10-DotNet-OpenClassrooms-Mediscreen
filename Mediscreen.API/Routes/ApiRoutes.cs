@@ -7,5 +7,6 @@ public static class ApiRoutes
         private const string Base = "/patients";
         public const string Tag = "Patients";
         public const string ListPatients = Base;
+        public const string GetPatient = Base + "/{id}";
     }
 }
