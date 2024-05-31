@@ -21,5 +21,15 @@ services:
     depends_on:
        - mediscreen.sqlserverdatabase
 
+  mediscreen.ui:
+    container_name: mediscreen.ui
+    image: ${DOCKER_REGISTRY-}mediscreenui
+    build:
+      context: .
+      dockerfile: Mediscreen.UI/Dockerfile
+    depends_on:
+      - mediscreen.api
+
 volumes:
   sqlserver_data:
+

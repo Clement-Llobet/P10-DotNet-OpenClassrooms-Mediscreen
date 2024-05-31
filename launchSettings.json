@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "mediscreen.api": "StartDebugging"
+        "mediscreen.api": "StartDebugging",
+        "mediscreen.ui": "StartDebugging"
       }
     }
   }
