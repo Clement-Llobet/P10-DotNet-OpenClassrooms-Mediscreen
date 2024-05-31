@@ -15,6 +15,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
 builder.Services.AddScoped<IPatientRepository>(provider => provider.GetRequiredService<MediscreenSqlServerContext>().PatientRepository);
+
 builder.Services.AddTransient<BogusDatasGenerator>();
 
 
@@ -28,8 +29,8 @@ var app = builder.Build();
 
 using (var serviceScope = app.Services.GetService<IServiceScopeFactory>()!.CreateScope())
 {
-    var californianHealthContext = serviceScope.ServiceProvider.GetRequiredService<MediscreenSqlServerContext>();
-    californianHealthContext.Database.Migrate();
+    var MediscreenSqlServerContext = serviceScope.ServiceProvider.GetRequiredService<MediscreenSqlServerContext>();
+    MediscreenSqlServerContext.Database.Migrate();
 }
 
 if (app.Environment.IsDevelopment())

@@ -5,13 +5,17 @@ namespace Mediscreen.Infrastructure.Tools;
 
 public class BogusDatasGenerator
 {
-    Faker<Patient> patientFaker;
+    public IReadOnlyCollection<Patient> Patients { get; set; } = [];
 
     public BogusDatasGenerator()
     {
-        Randomizer.Seed = new Random(123);
+        Patients = GeneratePatients(amount: 5);
+        
+    }
 
-        patientFaker = new Faker<Patient>()
+    private static IReadOnlyCollection<Patient> GeneratePatients(int amount)
+    {
+        var patientFaker = new Faker<Patient>()
             .RuleFor(p => p.Id, f => f.Random.Int(1, 1000))
             .RuleFor(p => p.FirstName, f => f.Name.FirstName())
             .RuleFor(p => p.LastName, f => f.Name.LastName())
@@ -19,12 +23,17 @@ public class BogusDatasGenerator
             .RuleFor(p => p.Gender, f => f.PickRandomParam("M", "F"))
             .RuleFor(p => p.HomeAddress, f => f.Address.FullAddress())
             .RuleFor(p => p.PhoneNumber, f => f.Phone.PhoneNumber());
+
+        var patients = Enumerable.Range(1, amount)
+            .Select(i => SeedRow(patientFaker, i))
+            .ToList();
+
+        return patients;
     }
 
-    public Patient GeneratePatient()
+    private static T SeedRow<T>(Faker<T> faker, int rowId) where T : class
     {
-        return patientFaker.Generate();
+        var recordRow = faker.UseSeed(rowId).Generate();
+        return recordRow;
     }
-
-
 }

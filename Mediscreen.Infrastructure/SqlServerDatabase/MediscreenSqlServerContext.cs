@@ -12,7 +12,10 @@ public class MediscreenSqlServerContext(DbContextOptions<MediscreenSqlServerCont
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         Patient.Configure(modelBuilder);
-        modelBuilder.Entity<Patient>().HasData(new BogusDatasGenerator().GeneratePatient());
+
+        var bogusDatasGenerator = new BogusDatasGenerator();
+
+        modelBuilder.Entity<Patient>().HasData(bogusDatasGenerator.Patients);
     }
 
     public async Task<int> SaveChangesAsync()
