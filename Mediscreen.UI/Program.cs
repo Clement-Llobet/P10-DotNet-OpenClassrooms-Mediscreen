@@ -1,6 +1,13 @@
+using Mediscreen.UI.Controllers.Services.PatientServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.BaseAddress = new Uri("https://api.example.com/"); // Replace with your API base URL
+});
+
+builder.Services.AddTransient<IPatientService, PatientService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

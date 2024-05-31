@@ -1,0 +1,12 @@
+﻿namespace Mediscreen.UI.Models;
+
+public class PatientViewModel
+{
+    public required int Id { get; set; }
+    public required string FirstName { get; set; } = string.Empty;
+    public required string LastName { get; set; } = string.Empty;
+    public required DateTime BirthDate { get; set; }
+    public required string Gender { get; set; } = string.Empty;
+    public required string HomeAddress { get; set; } = string.Empty;
+    public required string PhoneNumber { get; set; } = string.Empty;
+}
