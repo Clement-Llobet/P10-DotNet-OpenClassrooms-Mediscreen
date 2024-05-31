@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediscreen.Infrastructure",
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3D516EB5-DAFC-43FE-87EE-9CBB0A88FC56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediscreen.UI", "..\Mediscreen.UI\Mediscreen.UI.csproj", "{5D354D29-1F29-4C03-A10A-B37F99F6D85C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{3D516EB5-DAFC-43FE-87EE-9CBB0A88FC56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D516EB5-DAFC-43FE-87EE-9CBB0A88FC56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D516EB5-DAFC-43FE-87EE-9CBB0A88FC56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D354D29-1F29-4C03-A10A-B37F99F6D85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D354D29-1F29-4C03-A10A-B37F99F6D85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D354D29-1F29-4C03-A10A-B37F99F6D85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D354D29-1F29-4C03-A10A-B37F99F6D85C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{9E2371CC-300C-428A-BD5F-06859B8E6AAA} = {C86AFC85-0EC2-406D-B195-69EFC36F0292}
 		{7689AE42-96E2-4632-956F-1B71BE272AA9} = {C86AFC85-0EC2-406D-B195-69EFC36F0292}
 		{A455D517-6FAF-428F-91DC-967B9570771F} = {C86AFC85-0EC2-406D-B195-69EFC36F0292}
+		{5D354D29-1F29-4C03-A10A-B37F99F6D85C} = {C86AFC85-0EC2-406D-B195-69EFC36F0292}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4CE8ED23-18AA-42EF-BF6C-D361BB9A4757}
