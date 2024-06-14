@@ -5,16 +5,25 @@ using Mediscreen.Infrastructure.SqlServerDatabase;
 using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Security.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServerContext");
+
+//builder.Services.AddHttpClient("DisableSslValidationHttpClient").ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+//{
+//    ClientCertificateOptions = ClientCertificateOption.Manual,
+//    SslProtocols = SslProtocols.Tls12,
+//    ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+//});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
 builder.Services.AddScoped<IPatientRepository>(provider => provider.GetRequiredService<MediscreenSqlServerContext>().PatientRepository);
+
 
 builder.Services.AddTransient<BogusDatasGenerator>();
 

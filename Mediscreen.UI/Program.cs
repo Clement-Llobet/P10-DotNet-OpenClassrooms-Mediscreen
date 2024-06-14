@@ -1,25 +1,49 @@
 using Mediscreen.UI.Controllers.Services.PatientServices;
+using System.Security.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddHttpClient("ApiClient", client =>
-{
-    client.BaseAddress = new Uri("https://api.example.com/"); // Replace with your API base URL
-});
 
 builder.Services.AddTransient<IPatientService, PatientService>();
 builder.Services.AddControllersWithViews();
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpClient("DisableSslValidationHttpClient").ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ClientCertificateOptions = ClientCertificateOption.Manual,
+        SslProtocols = SslProtocols.Tls12,
+        ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+    });
+}
+else
+{
+    builder.Services.AddHttpClient("MediscreenAPI", client =>
+    {
+        client.BaseAddress = new Uri("https://localhost:65257");
+        client.DefaultRequestHeaders.Add("Accept", "application/json");
+    }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ClientCertificateOptions = ClientCertificateOption.Manual,
+        SslProtocols = SslProtocols.Tls12
+    });
+}
+
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+app.UseCors(policy =>
+{
+    policy.AllowAnyOrigin();
+    policy.AllowAnyHeader();
+    policy.AllowAnyMethod();
+});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

@@ -1,13 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Mediscreen.UI.Controllers.Services.PatientServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mediscreen.UI.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: HomeController
-        public ActionResult Index()
+        private readonly IPatientService _patientService;
+
+        public HomeController(IPatientService patientService)
         {
-            return View();
+            _patientService = patientService;
+        }
+
+        // GET: HomeController
+        public async Task<ActionResult> Index()
+        {
+            
+            var patients = await _patientService.GetAllPatients();
+            return View(patients);
         }
 
         // GET: HomeController/Details/5
