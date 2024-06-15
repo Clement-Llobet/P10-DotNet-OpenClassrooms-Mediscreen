@@ -1,4 +1,4 @@
-﻿using Mediscreen.Infrastructure.SqlServerDatabase;
+﻿using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

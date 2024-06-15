@@ -3,7 +3,7 @@ using Mediscreen.Infrastructure.SqlServerDatabase.Repositories;
 using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 
-namespace Mediscreen.Infrastructure.SqlServerDatabase;
+namespace Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 
 public class MediscreenSqlServerContext(DbContextOptions<MediscreenSqlServerContext> options) : DbContext(options)
 {

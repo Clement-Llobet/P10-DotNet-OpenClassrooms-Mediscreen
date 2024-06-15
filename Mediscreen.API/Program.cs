@@ -1,22 +1,14 @@
 using Mediscreen.API.Endpoints;
 using Mediscreen.Domain.Patient.Contracts;
 using Mediscreen.Infrastructure.Config;
-using Mediscreen.Infrastructure.SqlServerDatabase;
+using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System.Security.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServerContext");
-
-//builder.Services.AddHttpClient("DisableSslValidationHttpClient").ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-//{
-//    ClientCertificateOptions = ClientCertificateOption.Manual,
-//    SslProtocols = SslProtocols.Tls12,
-//    ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
-//});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();

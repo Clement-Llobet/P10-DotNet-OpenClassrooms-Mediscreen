@@ -1,7 +1,15 @@
+using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
+using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Mediscreen.UI.Controllers.Services.PatientServices;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.");
+
+builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityContext>();
 
 builder.Services.AddTransient<IPatientService, PatientService>();
 builder.Services.AddControllersWithViews();
