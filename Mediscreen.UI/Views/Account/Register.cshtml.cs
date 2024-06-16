@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace Mediscreen.UI.Areas.Identity.Pages.Account
+namespace Mediscreen.UI.Views.Account
 {
     public class RegisterModel : PageModel
     {

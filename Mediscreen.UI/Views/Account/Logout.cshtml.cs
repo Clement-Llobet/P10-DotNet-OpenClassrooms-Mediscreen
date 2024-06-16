@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Mediscreen.UI.Areas.Identity.Pages.Account
+namespace Mediscreen.UI.Views.Account
 {
     public class LogoutModel : PageModel
     {

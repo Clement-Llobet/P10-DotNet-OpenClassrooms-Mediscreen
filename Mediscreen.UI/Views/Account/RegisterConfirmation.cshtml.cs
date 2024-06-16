@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 
-namespace Mediscreen.UI.Areas.Identity.Pages.Account
+namespace Mediscreen.UI.Views.Account
 {
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
