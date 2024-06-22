@@ -18,4 +18,9 @@ public static class PatientManager
 
         return request == null ? throw new Exception("Patient not found") : PatientOutput.Render(request);
     }
+
+    public static int UpdatePatient(IPatientRepository patientRepository, PatientInput patientInput)
+    {
+        return patientRepository.UpdatePatient(patientInput);
+    }
 }

@@ -20,6 +20,7 @@ builder.Services.AddTransient<BogusDatasGenerator>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mediscreen", Version = "v1" });
+    c.EnableAnnotations();
 });
 
 var app = builder.Build();

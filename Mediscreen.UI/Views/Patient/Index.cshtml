@@ -29,6 +29,7 @@
                     <td>@Html.DisplayFor(patientItem => patient.BirthDate)</td>
                     <td>@Html.DisplayFor(patientItem => patient.HomeAddress)</td>
                     <td>@Html.DisplayFor(patientItem => patient.PhoneNumber)</td>
+                    <td><a href="@Url.Action("PatientDetails", "Patient", new { id = patient.Id })">View Details</a></td>
                 </tr>
             }
         </tbody>

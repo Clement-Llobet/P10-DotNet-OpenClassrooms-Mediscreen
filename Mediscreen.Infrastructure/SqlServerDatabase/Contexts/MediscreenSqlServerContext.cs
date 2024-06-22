@@ -7,7 +7,8 @@ namespace Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 
 public class MediscreenSqlServerContext(DbContextOptions<MediscreenSqlServerContext> options) : DbContext(options)
 {
-    public PatientRepository PatientRepository => new(Set<Patient>());
+    private readonly MediscreenSqlServerContext _context;
+    public PatientRepository PatientRepository => new(Set<Patient>(), _context);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

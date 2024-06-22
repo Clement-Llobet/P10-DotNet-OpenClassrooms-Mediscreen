@@ -2,11 +2,11 @@
 
 public interface IPatient
 {
-    int Id { get; }
-    string FirstName { get; }
-    string LastName { get; }
-    DateTime BirthDate { get; }
-    string Gender { get; }
-    string HomeAddress { get; }
-    string PhoneNumber { get; }
+    int Id { get; set; }
+    string FirstName { get; set; }
+    string LastName { get; set; }
+    DateTime BirthDate { get; set; }
+    string Gender { get; set; }
+    string HomeAddress { get; set; }
+    string PhoneNumber { get; set; }
 }

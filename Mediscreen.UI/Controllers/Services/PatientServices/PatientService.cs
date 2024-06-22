@@ -28,4 +28,14 @@ public class PatientService : IPatientService
 
         return content ?? [];
     }
+
+    public async Task<PatientViewModel> GetPatientById(int id)
+    {
+        var response = await _client.GetAsync($"{_baseUrl}/api/patients/{id}");
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadFromJsonAsync<PatientViewModel>();
+
+        return content ?? throw new InvalidOperationException("Patient not found");
+    }
 }

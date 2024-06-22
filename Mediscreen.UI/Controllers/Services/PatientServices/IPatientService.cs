@@ -5,4 +5,5 @@ namespace Mediscreen.UI.Controllers.Services.PatientServices;
 public interface IPatientService
 {
     Task<IEnumerable<PatientViewModel>> GetAllPatients();
+    Task<PatientViewModel> GetPatientById(int id);
 }
