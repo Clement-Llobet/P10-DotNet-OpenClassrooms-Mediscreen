@@ -4,5 +4,5 @@ namespace Mediscreen.Domain.Patient.Contracts;
 
 public interface IPatientRepository : IQueryable<IPatient>
 {
-    Task UpdatePatient(PatientInput patientInput);
+    Task<int> UpdatePatient(PatientInput patientInput);
 }

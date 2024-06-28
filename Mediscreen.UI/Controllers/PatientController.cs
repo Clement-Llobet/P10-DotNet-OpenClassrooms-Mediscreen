@@ -13,11 +13,6 @@ public class PatientController : Controller
     }
 
     // GET: PatientController
-    /// <summary>
-    /// Get the patiens list
-    /// </summary>
-    /// <param></param>
-    /// <returns>asynchronous user data</returns>
     public async Task<ActionResult> Index()
     {
         var patients = await _patientService.GetAllPatients();
@@ -25,11 +20,6 @@ public class PatientController : Controller
     }
 
     // GET: PatientController/Details/5
-    /// <summary>
-    /// Get the patient details by id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns>asynchronous user data</returns>
     public async Task<ActionResult> PatientDetails(int id)
     {
         var patient = await _patientService.GetPatientById(id);
@@ -58,9 +48,10 @@ public class PatientController : Controller
     }
 
     // GET: PatientController/Edit/5
-    public ActionResult Edit(int id)
+    public async Task<ActionResult> PatientDetailsEdit(int id)
     {
-        return View();
+        var patient = await _patientService.GetPatientById(id);
+        return View(patient);
     }
 
     // POST: PatientController/Edit/5

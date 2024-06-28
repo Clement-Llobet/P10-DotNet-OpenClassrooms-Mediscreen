@@ -15,7 +15,7 @@ public class PatientRepository : QueryableRepositoryBase<IPatient>, IPatientRepo
         _dbContext = dbContext;
     }
 
-    public Task UpdatePatient(PatientInput patientInput)
+    public Task<int> UpdatePatient(PatientInput patientInput)
     {
         var patient = _dbContext.PatientRepository.First(x => x.Id == patientInput.Id);
 
@@ -29,6 +29,6 @@ public class PatientRepository : QueryableRepositoryBase<IPatient>, IPatientRepo
         _dbContext.Update(patient);
         _dbContext.SaveChanges();
 
-        return Task.CompletedTask;
+       return Task.FromResult(patient.Id);
     }
 }

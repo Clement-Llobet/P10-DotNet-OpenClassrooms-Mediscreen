@@ -1,0 +1,21 @@
+﻿@model Mediscreen.UI.Models.PatientViewModel
+
+@{
+    ViewData["Title"] = "Edit Patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit @Model.FirstName @Model.LastName</h1>
+
+<div class="detail-page">
+    <div class="detail">
+        <h2>Details</h2>
+        <button>Edit</button>
+        <input type="text" value="@Model.Id" />
+        <input type="text" value="@Model.FirstName" />
+        <input type="text" value="@Model.LastName" />
+        <input type="text" value="@Model.BirthDate" />
+        <input type="text" value="@Model.HomeAddress" />
+        <input type="text" value="@Model.PhoneNumber" />
+    </div>
+</div>
