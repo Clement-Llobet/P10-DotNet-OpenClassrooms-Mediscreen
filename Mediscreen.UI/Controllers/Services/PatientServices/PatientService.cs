@@ -1,4 +1,5 @@
-﻿using Mediscreen.UI.Models;
+﻿using Mediscreen.Domain.Patient.Dto;
+using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 
 namespace Mediscreen.UI.Controllers.Services.PatientServices;
@@ -37,5 +38,24 @@ public class PatientService : IPatientService
         var content = await response.Content.ReadFromJsonAsync<PatientViewModel>();
 
         return content ?? throw new InvalidOperationException("Patient not found");
+    }
+
+    public async Task<PatientViewModel> UpdatePatient(int id, PatientViewModel patient)
+    {
+        var patientInput = new PatientInput
+        {
+            Id = id,
+            FirstName = patient.FirstName,
+            LastName = patient.LastName,
+            BirthDate = patient.BirthDate,
+            Gender = patient.Gender,
+            HomeAddress = patient.HomeAddress,
+            PhoneNumber = patient.PhoneNumber
+        };
+
+        var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/patients/{id}", patientInput);
+        response.EnsureSuccessStatusCode();
+
+        return patient;
     }
 }

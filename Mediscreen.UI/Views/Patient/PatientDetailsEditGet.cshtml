@@ -10,7 +10,7 @@
 <div class="detail-page">
     <div class="detail">
         <h2>Details</h2>
-        <form asp-action="PatientDetailsEdit" asp-controller="Patient" method="post">
+        <form asp-action="PatientDetailsEditPut" asp-controller="Patient" method="post">
             <input name="_RequestVerificationToken" type="hidden" />
             <input type="hidden" name="Id" value="@Model.Id" />
             <input type="text" name="FirstName" value="@Model.FirstName" />

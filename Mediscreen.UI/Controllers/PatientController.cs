@@ -1,4 +1,5 @@
 ﻿using Mediscreen.UI.Controllers.Services.PatientServices;
+using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mediscreen.UI.Controllers;
@@ -48,7 +49,7 @@ public class PatientController : Controller
     }
 
     // GET: PatientController/Edit/5
-    public async Task<ActionResult> PatientDetailsEdit(int id)
+    public async Task<ActionResult> PatientDetailsEditGet(int id)
     {
         var patient = await _patientService.GetPatientById(id);
         return View(patient);
@@ -57,11 +58,12 @@ public class PatientController : Controller
     // POST: PatientController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> PatientDetailsEditPut(int id, PatientViewModel patient)
     {
         try
         {
-            return RedirectToAction(nameof(Index));
+            var userUpdated = await _patientService.UpdatePatient(id, patient);
+            return RedirectToAction(nameof(PatientDetails), new { id });
         }
         catch
         {
