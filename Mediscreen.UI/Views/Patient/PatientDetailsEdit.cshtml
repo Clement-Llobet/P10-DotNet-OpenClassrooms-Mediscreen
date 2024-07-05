@@ -1,0 +1,26 @@
+﻿@model Mediscreen.UI.Models.PatientViewModel
+
+@{
+    ViewData["Title"] = "Edit Patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit @Model.FirstName @Model.LastName</h1>
+
+<div class="detail-page">
+    <div class="detail">
+        <h2>Details</h2>
+        <form asp-action="PatientDetailsEdit" asp-controller="Patient" method="post">
+            <input name="_RequestVerificationToken" type="hidden" />
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="text" name="FirstName" value="@Model.FirstName" />
+            <input type="text" name="LastName" value="@Model.LastName" />
+            <input type="text" name="BirthDate" value="@Model.BirthDate" />
+            <input type="text" name="Gender" value="@Model.Gender" />
+            <input type="text" name="HomeAddress" value="@Model.HomeAddress" />
+            <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" />
+
+            <button>Submit</button>
+        </form>
+    </div>
+</div>

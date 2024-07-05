@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Mediscreen.UI.Models.PatientViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Patient List</h1>
+
+    <p>
+        <a href="~/Patient/CreatePatient" class="btn btn-primary">Create new patient</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Birth Date</th>
+                <th>HomeAddress</th>
+                <th>PhoneNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(patientItem => patient.Id)</td>
+                    <td>@Html.DisplayFor(patientItem => patient.FirstName)</td>
+                    <td>@Html.DisplayFor(patientItem => patient.LastName)</td>
+                    <td>@Html.DisplayFor(patientItem => patient.BirthDate)</td>
+                    <td>@Html.DisplayFor(patientItem => patient.HomeAddress)</td>
+                    <td>@Html.DisplayFor(patientItem => patient.PhoneNumber)</td>
+                    <td><a href="@Url.Action("PatientDetails", "Patient", new { id = patient.Id })">View Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

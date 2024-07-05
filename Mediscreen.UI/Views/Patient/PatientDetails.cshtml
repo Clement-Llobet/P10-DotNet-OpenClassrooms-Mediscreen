@@ -1,0 +1,22 @@
+﻿@model Mediscreen.UI.Models.PatientViewModel
+
+@{
+    ViewData["Title"] = "Patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.FirstName @Model.LastName</h1>
+
+<div class="detail-page">
+    <div class="detail">
+        <h2>Details</h2>
+        <a href="/Patient/PatientDetailsEditGet/@Model.Id">Edit</a>
+        <p><span>@Html.DisplayNameFor(model => model.Id) : </span>@Model.Id</p>
+        <p><span>@Html.DisplayNameFor(model => model.FirstName) : </span>@Model.FirstName</p>
+        <p><span>@Html.DisplayNameFor(model => model.LastName) : </span>@Model.LastName</p>
+        <p><span>@Html.DisplayNameFor(model => model.Gender) : </span>@Model.Gender</p>
+        <p><span>@Html.DisplayNameFor(model => model.BirthDate) : </span>@Model.BirthDate</p>
+        <p><span>@Html.DisplayNameFor(model => model.HomeAddress) : </span>@Model.HomeAddress</p>
+        <p><span>@Html.DisplayNameFor(model => model.PhoneNumber) : </span>@Model.PhoneNumber</p>
+    </div>
+</div>
