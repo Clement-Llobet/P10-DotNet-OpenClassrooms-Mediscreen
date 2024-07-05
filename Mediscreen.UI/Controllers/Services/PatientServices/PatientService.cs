@@ -20,6 +20,24 @@ public class PatientService : IPatientService
         return env.IsDevelopment() ? "http://host.docker.internal:65255" : $"https://host.docker.internal:65256";
     }
 
+    public Task<PatientViewModel> CreatePatient(PatientViewModel patient)
+    {
+        var patientInputCreate = new PatientInputCreate
+        {
+            FirstName = patient.FirstName,
+            LastName = patient.LastName,
+            BirthDate = patient.BirthDate,
+            Gender = patient.Gender,
+            HomeAddress = patient.HomeAddress,
+            PhoneNumber = patient.PhoneNumber
+        };
+
+        var response = _client.PostAsJsonAsync($"{_baseUrl}/api/patients", patientInputCreate);
+        response.Result.EnsureSuccessStatusCode();
+
+        return Task.FromResult(patient);
+    }
+
     public async Task<IEnumerable<PatientViewModel>> GetAllPatients()
     {
         var response = await _client.GetAsync($"{_baseUrl}/api/patients");

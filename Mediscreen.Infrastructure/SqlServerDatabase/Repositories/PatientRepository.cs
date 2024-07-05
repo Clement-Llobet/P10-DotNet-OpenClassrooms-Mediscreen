@@ -31,4 +31,22 @@ public class PatientRepository : QueryableRepositoryBase<IPatient>, IPatientRepo
 
        return Task.FromResult(patient.Id);
     }
+
+    public Task<int> CreatePatient(PatientInputCreate patientInputCreate)
+    {
+        var patient = new Patient
+        {
+            FirstName = patientInputCreate.FirstName,
+            LastName = patientInputCreate.LastName,
+            BirthDate = patientInputCreate.BirthDate,
+            Gender = patientInputCreate.Gender,
+            HomeAddress = patientInputCreate.HomeAddress ?? "",
+            PhoneNumber = patientInputCreate.PhoneNumber ?? ""
+        };
+
+        _dbContext.Add(patient);
+        _dbContext.SaveChanges();
+
+        return Task.FromResult(patient.Id);
+    }
 }

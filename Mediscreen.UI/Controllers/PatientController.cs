@@ -28,7 +28,7 @@ public class PatientController : Controller
     }
 
     // GET: PatientController/Create
-    public ActionResult Create()
+    public ActionResult CreatePatient()
     {
         return View();
     }
@@ -36,10 +36,11 @@ public class PatientController : Controller
     // POST: PatientController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public async Task<ActionResult> CreatePatientPost(PatientViewModel patient)
     {
         try
         {
+            var userUpdated = await _patientService.CreatePatient(patient);
             return RedirectToAction(nameof(Index));
         }
         catch

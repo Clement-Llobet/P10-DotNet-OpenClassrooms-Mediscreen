@@ -1,0 +1,24 @@
+﻿@model Mediscreen.UI.Models.PatientViewModel
+
+@{
+    ViewData["Title"] = "Edit Patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create new patient</h1>
+
+<div class="detail-page">
+    <div class="detail">
+        <form asp-action="CreatePatientPost" asp-controller="Patient" method="post">
+            <input name="_RequestVerificationToken" type="hidden" />
+            <input type="text" name="FirstName" placeholder="FirstName" />
+            <input type="text" name="LastName" placeholder="LastName" />
+            <input type="text" name="BirthDate" placeholder="BirthDate" />
+            <input type="text" name="Gender" placeholder="Gender" />
+            <input type="text" name="HomeAddress" placeholder="HomeAddress" />
+            <input type="text" name="PhoneNumber" placeholder="PhoneNumber" />
+
+            <button>Submit</button>
+        </form>
+    </div>
+</div>

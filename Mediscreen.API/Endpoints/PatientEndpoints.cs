@@ -21,5 +21,9 @@ public static class PatientEndpoints
         app.MapPut(ApiRoutes.Patient.UpdatePatient, (IPatientRepository patientRepository, [Bind("Id,FirstName,LastName,BirthDate,Gender,HomeAddress,PhoneNumber")] PatientInput patientInput) => PatientManager.UpdatePatient(patientRepository, patientInput))
             .WithTags(ApiRoutes.Patient.Tag)
             .WithMetadata(ApiRoutes.Patient.UpdatePatientMetadata);
+
+        app.MapPost(ApiRoutes.Patient.CreatePatient, (IPatientRepository patientRepository, [Bind("FirstName,LastName")] PatientInputCreate patientInputCreate) => PatientManager.CreatePatient(patientRepository, patientInputCreate))
+            .WithTags(ApiRoutes.Patient.Tag)
+            .WithMetadata(ApiRoutes.Patient.CreatePatientMetadata);
     }
 }

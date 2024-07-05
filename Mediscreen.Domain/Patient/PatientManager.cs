@@ -23,4 +23,9 @@ public static class PatientManager
     {
         return patientRepository.UpdatePatient(patientInput);
     }
+
+    public static Task<int> CreatePatient(IPatientRepository patientRepository, PatientInputCreate patientInputCreate)
+    {
+        return patientRepository.CreatePatient(patientInputCreate);
+    }
 }

@@ -14,5 +14,7 @@ public static class ApiRoutes
         public static readonly SwaggerOperationAttribute GetPatientMetadata = new("Get patient by id", "Retrieve a single patient from the SQL Server database");
         public const string UpdatePatient = Base + "/{id}";
         public static readonly SwaggerOperationAttribute UpdatePatientMetadata = new("Update patient by id", "Update a single patient");
+        public const string CreatePatient = Base;
+        public static readonly SwaggerOperationAttribute CreatePatientMetadata = new("Create patient", "Create a new patient");
     }
 }
