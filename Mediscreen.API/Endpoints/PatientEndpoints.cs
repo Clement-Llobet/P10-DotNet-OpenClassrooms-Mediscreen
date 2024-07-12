@@ -5,7 +5,6 @@ using Mediscreen.Domain.Patient.Contracts;
 using Mediscreen.Domain.Patient.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using System.Text.Json;
 
 namespace Mediscreen.API.Endpoints;
 
