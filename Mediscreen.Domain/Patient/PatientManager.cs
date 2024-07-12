@@ -5,9 +5,9 @@ namespace Mediscreen.Domain.Patient;
 
 public static class PatientManager
 {
-    public static List<PatientOutput> ListPatients(IPatientRepository patientRepository)
+    public static List<PatientOutput> ListPatients(IPatientRepository patientRepository, Func<List<IPatient>> dataRetrievalMethod)
     {
-        var request = patientRepository.ToList();
+        var request = dataRetrievalMethod();
 
         return request.Select(PatientOutput.Render).ToList();
     }

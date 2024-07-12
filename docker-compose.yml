@@ -12,6 +12,13 @@ services:
     ports:
       - 8001:1433
 
+  mediscreen.cache:
+    container_name: mediscreen.cache
+    image: redis:7.2.5
+    restart: always
+    ports:
+      - 6379:6379
+
   mediscreen.api:
     container_name: mediscreen.api
     image: ${DOCKER_REGISTRY-}mediscreenapi
