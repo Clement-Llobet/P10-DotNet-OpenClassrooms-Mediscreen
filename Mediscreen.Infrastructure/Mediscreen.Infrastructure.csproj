@@ -11,10 +11,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.27.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mediscreen.Domain\Mediscreen.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MongoDbDatabase\" />
   </ItemGroup>
 
 </Project>
