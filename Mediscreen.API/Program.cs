@@ -4,10 +4,14 @@ using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServerContext");
+//var mongoDbConnectionStringFile = builder.Configuration["MONGO_CONNECTION_STRING_FILE"];
+//string connectionString = File.ReadAllText(mongoDbConnectionStringFile).Trim();
+var mongoDbConnectionString = builder.Configuration.GetConnectionString("MongoDb");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
@@ -20,7 +24,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services.AddTransient<BogusDatasGenerator>();
-
 
 builder.Services.AddSwaggerGen(c =>
 {

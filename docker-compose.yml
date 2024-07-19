@@ -14,9 +14,11 @@ services:
 
   mediscreen.mongodbclient:
     container_name: mediscreen.mongodbclient
-    image: mongo:8.0.0-rc13-jammy
+    image: mongo
+    secrets:
+      - mongodb_connection_string
     environment:
-      - ConnectionStrings__MongoDb=${MONGODB_CONNECTION_STRING}
+      - ConnectionStrings__MongoDb_FILE=/run/secrets/mongodb_connection_string
     volumes:
       - mongodb_data:/mongo/data:/data/db
     ports:
@@ -57,9 +59,12 @@ services:
     depends_on:
       - mediscreen.api
 
+secrets:
+  mongodb_connection_string:
+    external: true
+
 volumes:
   sqlserver_data:
-
   mongodb_data:
 
   

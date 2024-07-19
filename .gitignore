@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /Mediscreen.API/appsettings.Development.json
 /Mediscreen.API/.env.development
+/Mediscreen.API/appsettings.Development.json
+/Mediscreen.UI/appsettings.Development.json
