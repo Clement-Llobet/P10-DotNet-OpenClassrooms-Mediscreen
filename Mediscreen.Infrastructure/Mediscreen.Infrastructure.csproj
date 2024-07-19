@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Mediscreen.Domain\Mediscreen.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MongoDbDatabase\" />
-  </ItemGroup>
-
 </Project>
