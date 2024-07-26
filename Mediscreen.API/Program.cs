@@ -60,5 +60,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapPatientsEndpoints();
+app.MapNotesEndpoints();
 
 app.Run();

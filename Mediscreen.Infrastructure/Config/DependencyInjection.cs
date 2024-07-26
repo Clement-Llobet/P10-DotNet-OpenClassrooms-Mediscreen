@@ -32,7 +32,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddMongoDbDatabase(this IServiceCollection services, string mongoConnectionString)
     {
-        services.AddScoped<IMongoClient, MongoClient>(sp => new MongoClient("MongoDb"));
+        services.AddScoped<IMongoClient, MongoClient>(sp => new MongoClient(mongoConnectionString));
         services.AddScoped(sp =>
         {
             var client = sp.GetRequiredService<IMongoClient>();
