@@ -1,8 +1,10 @@
 ﻿using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Patient.Contracts;
+using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.Infrastructure.MongoDbDatabase.Repository;
 using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
@@ -28,11 +30,20 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddMongoDbDatabase(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddMongoDbDatabase(this IServiceCollection services, string mongoConnectionString)
     {
-        services.AddSingleton(new MongoClient(connectionString));
+        services.AddScoped<IMongoClient, MongoClient>(sp => new MongoClient("MongoDb"));
+        services.AddScoped(sp =>
+        {
+            var client = sp.GetRequiredService<IMongoClient>();
+            var database = client.GetDatabase("Mediscreen");
+            var collection = database.GetCollection<Notes>("Notes");
+            return collection.AsQueryable().OfType<INotes>();
+        });
 
-        services.AddScoped<INotesRepository>(provider => new NotesRepository(provider.GetRequiredService<MongoClient>()));
+        services.AddSingleton(new MongoClient(mongoConnectionString));
+
+        services.AddTransient<INotesRepository, NotesRepository>();
 
         return services;
     }

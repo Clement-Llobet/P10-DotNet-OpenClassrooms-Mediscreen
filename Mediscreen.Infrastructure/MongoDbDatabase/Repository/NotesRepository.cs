@@ -15,6 +15,16 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         _notes = database.GetCollection<Notes>("Notes");
     }
 
+    public async Task<IEnumerable<INotes>> GetNotesAsync()
+    {
+        return await _notes.Find(note => true).ToListAsync();
+    }
+
+    public async Task<INotes> GetNoteAsync(int patientId)
+    {
+        return await _notes.Find(note => note.PatientId == patientId).FirstOrDefaultAsync();
+    }
+
     public async Task CreateNoteAsync(NotesCreateInput noteInput, int practitionerId)
     {
         var newNote = new Notes
@@ -28,7 +38,7 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         await _notes.InsertOneAsync(newNote);
     }
 
-    public async Task UpdateNoteAsync(int patientId, NotesUpdateInput notesInput, int practitionerId)
+    public async Task UpdateNoteAsync(NotesUpdateInput notesInput, int practitionerId)
     {
         var updatedNote = new Notes
         {
@@ -38,7 +48,7 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             LastUpdatdDate = notesInput.CurrentDateTime
         };
 
-        await _notes.ReplaceOneAsync(note => note.PatientId == patientId, updatedNote);
+        await _notes.ReplaceOneAsync(note => note.PatientId == notesInput.PatientId, updatedNote);
     }
 
     public async Task DeleteNoteAsync(int patientId)

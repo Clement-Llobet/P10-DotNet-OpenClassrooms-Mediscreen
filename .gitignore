@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /Mediscreen.API/.env.development
 /Mediscreen.API/appsettings.Development.json
 /Mediscreen.UI/appsettings.Development.json
+/Mediscreen.UI/appsettings.Development.json

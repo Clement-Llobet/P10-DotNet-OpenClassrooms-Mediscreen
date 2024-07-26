@@ -4,19 +4,17 @@ using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.Configuration;
-using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServerContext");
-var mongoDbConnectionString = builder.Configuration.GetConnectionString("MongoDb");
+var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDb");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
-builder.Services.AddMongoDbDatabase(mongoDbConnectionString!);
+builder.Services.AddMongoDbDatabase(mongoConnectionString!);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");

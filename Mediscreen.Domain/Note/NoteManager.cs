@@ -1,4 +1,5 @@
 ﻿using Mediscreen.Domain.Note.Contracts;
+using Mediscreen.Domain.Note.Dto;
 
 namespace Mediscreen.Domain.Note;
 
@@ -11,24 +12,28 @@ public class NoteManager
         _noteRepository = noteRepository;
     }
 
-    public async Task<List<NoteOutput>> GetNotesAsync()
+    public async Task<IEnumerable<NotesOutput>> GetNotesAsync()
     {
-        return await _noteRepository.GetNotesAsync();
+        var notes = await _noteRepository.GetNotesAsync();
+
+        return notes.Select(NotesOutput.Render);
     }
 
-    public async Task<NoteOutput> GetNoteAsync(int patientId)
+    public async Task<NotesOutput> GetNoteAsync(int patientId)
     {
-        return await _noteRepository.GetNoteAsync(patientId);
+        var notes = await _noteRepository.GetNoteAsync(patientId);
+
+        return NotesOutput.Render(notes);
     }
 
-    public async Task CreateNoteAsync(NoteCreateInput note)
+    public async Task CreateNoteAsync(NotesCreateInput note, int practitionerId)
     {
-        await _noteRepository.CreateNoteAsync(note);
+        await _noteRepository.CreateNoteAsync(note, practitionerId);
     }
 
-    public async Task UpdateNoteAsync(int patientId, NoteUpdateInput noteIn)
+    public async Task UpdateNoteAsync(NotesUpdateInput noteInput, int practitionerId)
     {
-        await _noteRepository.UpdateNoteAsync(patientId, noteIn);
+        await _noteRepository.UpdateNoteAsync(noteInput, practitionerId);
     }
 
     public async Task DeleteNoteAsync(int patientId)
