@@ -6,6 +6,8 @@ namespace Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 public class Notes : INotes
 {
     [BsonId]
+    [BsonElement("noteId")]
+    public int NoteId { get; set; }
     [BsonElement("patientId")]
     public int PatientId { get; set; }
     [BsonElement("note")]

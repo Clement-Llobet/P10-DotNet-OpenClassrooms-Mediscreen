@@ -4,6 +4,7 @@ namespace Mediscreen.Domain.Note.Dto;
 
 public record NotesOutput
 {
+    public int NoteId { get; set; }
     public required int PatientId { get; set; }
     public string Note { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; }
@@ -13,6 +14,7 @@ public record NotesOutput
     {
         return new NotesOutput
         {
+            NoteId = notes.NoteId,
             PatientId = notes.PatientId,
             Note = notes.Note,
             CreatedDate = notes.CreatedDate,
