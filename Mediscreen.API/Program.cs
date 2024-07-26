@@ -8,11 +8,13 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 var sqlServerConnectionString = builder.Configuration.GetConnectionString("SqlServerContext");
+var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDb");
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddSqlServerDatabase(sqlServerConnectionString!);
+builder.Services.AddMongoDbDatabase(mongoConnectionString!);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
@@ -20,7 +22,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services.AddTransient<BogusDatasGenerator>();
-
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -59,5 +60,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapPatientsEndpoints();
+app.MapNotesEndpoints();
 
 app.Run();

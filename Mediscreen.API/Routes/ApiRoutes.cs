@@ -17,4 +17,20 @@ public static class ApiRoutes
         public const string CreatePatient = Base;
         public static readonly SwaggerOperationAttribute CreatePatientMetadata = new("Create patient", "Create a new patient");
     }
+
+    public static class Notes
+    {
+        private const string Base = "/api/notes";
+        public const string Tag = "Notes";
+        public const string ListNotes = Base;
+        public static readonly SwaggerOperationAttribute ListNotesMetadata = new("Get all notes", "Retrieve all patient notes from the MongoDB database");
+        public const string GetNote = Base + "/{id}";
+        public static readonly SwaggerOperationAttribute GetNoteMetadata = new("Get a single note", "Retrieve a patient note from the MongoDB database");
+        public const string CreateNote = Base;
+        public static readonly SwaggerOperationAttribute CreateNoteMetadata = new("Create a note", "Create a new note");
+        public const string UpdateNote = Base + "/{id}";
+        public static readonly SwaggerOperationAttribute UpdateNoteMetadata = new("Update a note", "Update a note");
+        public const string DeleteNote = Base + "/{id}";
+        public static readonly SwaggerOperationAttribute DeleteNoteMetadata = new("Delete a note", "Delete a note");
+    }
 }
