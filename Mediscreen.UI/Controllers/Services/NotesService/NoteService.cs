@@ -42,7 +42,7 @@ public class NoteService : INotesService
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadFromJsonAsync<IEnumerable<NotesViewModel>>();
-        return content ?? [];
+        return content ?? new List<NotesViewModel>();
     }
 
     public async Task<NotesViewModel> GetPatientNoteById(int id) 

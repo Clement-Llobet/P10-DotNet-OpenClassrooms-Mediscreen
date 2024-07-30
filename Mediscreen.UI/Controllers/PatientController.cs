@@ -1,4 +1,5 @@
-﻿using Mediscreen.UI.Controllers.Services.PatientServices;
+﻿using Mediscreen.UI.Controllers.Services.NotesService;
+using Mediscreen.UI.Controllers.Services.PatientServices;
 using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,16 +8,19 @@ namespace Mediscreen.UI.Controllers;
 public class PatientController : Controller
 {
     private readonly IPatientService _patientService;
+    private readonly INotesService _noteService;
 
-    public PatientController(IPatientService patientService)
+    public PatientController(IPatientService patientService, INotesService noteService)
     {
         _patientService = patientService;
+        _noteService = noteService;
     }
 
     // GET: PatientController
     public async Task<ActionResult> Index()
     {
         var patients = await _patientService.GetAllPatients();
+
         return View(patients);
     }
 
@@ -24,6 +28,15 @@ public class PatientController : Controller
     public async Task<ActionResult> PatientDetails(int id)
     {
         var patient = await _patientService.GetPatientById(id);
+
+        if (patient == null)
+        {
+            return NotFound();
+        }
+
+        var notes = await _noteService.GetAllPatientNotes();
+        patient.Notes = notes.Where(note => note.PatientId == id).ToList();
+
         return View(patient);
     }
 
