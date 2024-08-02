@@ -1,7 +1,6 @@
 ﻿using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Mediscreen.UI.Controllers.Services.NotesService;
 using Mediscreen.UI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -65,7 +64,8 @@ public class NotesController : Controller
             };
 
             var noteCreated = await _noteService.CreateNote(note);
-            return RedirectToAction(nameof(NoteDetails), new { });
+
+            return RedirectToAction("ValidationCreation");
         }
         catch
         {
@@ -100,5 +100,10 @@ public class NotesController : Controller
         {
             return View();
         }
+    }
+
+    public ActionResult ValidationCreation()
+    {
+        return View();
     }
 }
