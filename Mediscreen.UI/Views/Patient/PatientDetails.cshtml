@@ -18,5 +18,23 @@
         <p><span>@Html.DisplayNameFor(model => model.BirthDate) : </span>@Model.BirthDate</p>
         <p><span>@Html.DisplayNameFor(model => model.HomeAddress) : </span>@Model.HomeAddress</p>
         <p><span>@Html.DisplayNameFor(model => model.PhoneNumber) : </span>@Model.PhoneNumber</p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Note Id</th>
+                    <th>Note Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var note in Model.Notes)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(noteItem => note.NoteId)</td>
+                        <td>@Html.DisplayFor(noteItem => note.Note)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>

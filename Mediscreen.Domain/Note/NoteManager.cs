@@ -5,16 +5,16 @@ namespace Mediscreen.Domain.Note;
 
 public class NoteManager
 {
-    public static async Task<IEnumerable<NotesOutput>> ListNotesAsync(INotesRepository noteRepository)
+    public static async Task<IEnumerable<NotesOutput>> ListNotesFromPatientAsync(INotesRepository noteRepository, int patientId)
     {
-        var notes = await noteRepository.GetNotesAsync();
+        var notes = await noteRepository.GetNotesAsync(patientId);
 
         return notes.Select(NotesOutput.Render);
     }
 
-    public static async Task<NotesOutput> GetNoteAsync(INotesRepository noteRepository, int patientId)
+    public static async Task<NotesOutput> GetNoteAsync(INotesRepository noteRepository, int noteId)
     {
-        var notes = await noteRepository.GetNoteAsync(patientId);
+        var notes = await noteRepository.GetNoteAsync(noteId);
 
         return NotesOutput.Render(notes);
     }
@@ -24,13 +24,8 @@ public class NoteManager
         await noteRepository.CreateNoteAsync(note, practitionerId);
     }
 
-    public static async Task UpdateNoteAsync(INotesRepository noteRepository, NotesUpdateInput noteInput, int practitionerId)
+    public static async Task UpdateNoteAsync(INotesRepository noteRepository, NotesUpdateInput noteInput, int noteId, int practitionerId)
     {
-        await noteRepository.UpdateNoteAsync(noteInput, practitionerId);
-    }
-
-    public static async Task DeleteNoteAsync(INotesRepository noteRepository, int patientId)
-    {
-        await noteRepository.DeleteNoteAsync(patientId);
+        await noteRepository.UpdateNoteAsync(noteInput, noteId, practitionerId);
     }
 }

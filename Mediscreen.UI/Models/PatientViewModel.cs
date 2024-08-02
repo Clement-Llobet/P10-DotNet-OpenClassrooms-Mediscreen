@@ -9,4 +9,5 @@ public class PatientViewModel
     public required string Gender { get; set; } = string.Empty;
     public string HomeAddress { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
+    public List<NotesViewModel> Notes { get; set; } = [];
 }

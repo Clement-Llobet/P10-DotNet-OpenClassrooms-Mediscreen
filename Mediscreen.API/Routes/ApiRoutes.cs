@@ -22,7 +22,7 @@ public static class ApiRoutes
     {
         private const string Base = "/api/notes";
         public const string Tag = "Notes";
-        public const string ListNotes = Base;
+        public const string ListNotes = Base + "/patient/{patientId}";
         public static readonly SwaggerOperationAttribute ListNotesMetadata = new("Get all notes", "Retrieve all patient notes from the MongoDB database");
         public const string GetNote = Base + "/{id}";
         public static readonly SwaggerOperationAttribute GetNoteMetadata = new("Get a single note", "Retrieve a patient note from the MongoDB database");

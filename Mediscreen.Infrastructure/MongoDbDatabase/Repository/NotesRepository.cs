@@ -15,20 +15,21 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         _notes = database.GetCollection<Notes>("Notes");
     }
 
-    public async Task<IEnumerable<INotes>> GetNotesAsync()
+    public async Task<IEnumerable<INotes>> GetNotesAsync(int patientId)
     {
-        return await _notes.Find(note => true).ToListAsync();
+        return await _notes.Find(note => note.PatientId == patientId).ToListAsync();
     }
 
-    public async Task<INotes> GetNoteAsync(int patientId)
+    public async Task<INotes> GetNoteAsync(int noteId)
     {
-        return await _notes.Find(note => note.PatientId == patientId).FirstOrDefaultAsync();
+        return await _notes.Find(note => note.NoteId == noteId).FirstOrDefaultAsync();
     }
 
     public async Task CreateNoteAsync(NotesCreateInput noteInput, int practitionerId)
     {
         var newNote = new Notes
         {
+            NoteId = Guid.NewGuid().GetHashCode(),
             PatientId = noteInput.PatientId,
             Note = noteInput.Note ?? "",
             DoctorId = practitionerId,
@@ -38,21 +39,17 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         await _notes.InsertOneAsync(newNote);
     }
 
-    public async Task UpdateNoteAsync(NotesUpdateInput notesInput, int practitionerId)
+    public async Task UpdateNoteAsync(NotesUpdateInput notesInput, int noteId, int practitionerId)
     {
         var updatedNote = new Notes
         {
+            NoteId = noteId,
             PatientId = notesInput.PatientId,
             Note = notesInput.Note ?? "",
             DoctorId = practitionerId,
             LastUpdatdDate = notesInput.CurrentDateTime
         };
 
-        await _notes.ReplaceOneAsync(note => note.PatientId == notesInput.PatientId, updatedNote);
-    }
-
-    public async Task DeleteNoteAsync(int patientId)
-    {
-        await _notes.DeleteOneAsync(note => note.PatientId == patientId);
+        await _notes.ReplaceOneAsync(note => note.NoteId == notesInput.NoteId, updatedNote);
     }
 }
