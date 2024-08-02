@@ -5,15 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit @Model.NoteId</h1>
+<h1>Edit Patient's note @Model.NoteId</h1>
 
 <div class="detail-page">
     <div class="detail">
-
-        <form asp-action="UpdateNotePost" asp-controller="Notes" method="post">
+        <form asp-action="NoteDetailsEditPut" asp-controller="Notes" method="post">
             <input name="_RequestVerificationToken" type="hidden" />
             <input type="hidden" name="NoteId" value="@Model.NoteId" />
-            <textarea type="text" name="Comment">@Model.Note</textarea> />
+            <input type="hidden" name="PatientId" value="@Model.PatientId" />
+            <textarea type="text" name="Note">@Model.Note</textarea> />
+            <input type="hidden" name="CreatedDate" value="@Model.CreatedDate" />
+            <input type="hidden" name="PractitionerId" value="@Model.PractitionerId" />
+            <input type="hidden" name="Practitioner" value="@Model.Practitioner" />
+
             <button>Submit</button>
         </form>
     </div>

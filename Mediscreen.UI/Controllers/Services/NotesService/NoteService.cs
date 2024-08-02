@@ -55,18 +55,18 @@ public class NoteService : INotesService
         return content ?? throw new InvalidOperationException("Note not found");
     }
 
-    public async Task<NotesViewModel> UpdateNote(int id, NotesViewModel note)
+    public async Task<NotesViewModel> UpdateNote(int noteId, NotesViewModel note)
     {
         var noteInputUpdate = new NotesUpdateInput
         {
             NoteId = note.NoteId,
             PatientId = note.PatientId,
             Note = note.Note,
-            CurrentDateTime = note.CreatedDate,
+            CurrentDateTime = DateTime.Now,
             Practitioner = note.Practitioner
         };
 
-        var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{id}", noteInputUpdate);
+        var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{noteId}", noteInputUpdate);
         response.EnsureSuccessStatusCode();
 
         return note;

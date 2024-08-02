@@ -1,4 +1,5 @@
 ﻿using Mediscreen.UI.Controllers.Services.NotesService;
+using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,19 @@ public class NotesController : Controller
     public NotesController(INotesService noteService)
     {
         _noteService = noteService;
+    }
+
+    // GET: NotesController/Details/5
+    public async Task<ActionResult> NoteDetails(int id)
+    {
+        var note = await _noteService.GetPatientNoteById(id);
+
+        if (note == null)
+        {
+            return NotFound();
+        }
+
+        return View(note);
     }
 
     // GET: NotesController/Create
@@ -51,12 +65,12 @@ public class NotesController : Controller
     // POST: NotesController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> NoteDetailsEditPut(int id, NotesViewModel notesViewModel)
     {
         try
         {
-            return View();
-            //return RedirectToAction(nameof(Index));
+            var noteUpdated = await _noteService.UpdateNote(id, notesViewModel);
+            return RedirectToAction(nameof(NoteDetails), new { id });
         }
         catch
         {

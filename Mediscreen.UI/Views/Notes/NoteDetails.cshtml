@@ -1,0 +1,20 @@
+﻿@model Mediscreen.UI.Models.NotesViewModel
+
+@{
+    ViewData["Title"] = "Note";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Patient's note @Model.NoteId</h1>
+
+<div class="detail-page">
+    <div class="detail">
+        <h2>Details</h2>
+        <a href="/Notes/NoteDetailsEdit/@Model.NoteId">Edit</a>
+        <p><span>@Html.DisplayNameFor(model => model.NoteId) : </span>@Model.NoteId</p>
+        <p><span>@Html.DisplayNameFor(model => model.Note) : </span>@Model.Note</p>
+        <p><span>@Html.DisplayNameFor(model => model.PatientId) : </span>@Model.PatientId</p>
+        <p><span>@Html.DisplayNameFor(model => model.CreatedDate) : </span>@Model.CreatedDate</p>
+
+    </div>
+</div>

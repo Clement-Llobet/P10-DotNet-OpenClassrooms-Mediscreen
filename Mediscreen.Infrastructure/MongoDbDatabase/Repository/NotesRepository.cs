@@ -39,14 +39,14 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         await _notes.InsertOneAsync(newNote);
     }
 
-    public async Task UpdateNoteAsync(NotesUpdateInput notesInput, int noteId, int practitionerId)
+    public async Task UpdateNoteAsync(NotesUpdateInput notesInput, int noteId)
     {
         var updatedNote = new Notes
         {
             NoteId = noteId,
             PatientId = notesInput.PatientId,
             Note = notesInput.Note ?? "",
-            DoctorId = practitionerId,
+            DoctorId = Convert.ToInt32(notesInput.Practitioner),
             LastUpdatdDate = notesInput.CurrentDateTime
         };
 

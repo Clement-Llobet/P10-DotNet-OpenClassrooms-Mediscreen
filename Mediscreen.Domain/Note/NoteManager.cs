@@ -24,8 +24,8 @@ public class NoteManager
         await noteRepository.CreateNoteAsync(note, practitionerId);
     }
 
-    public static async Task UpdateNoteAsync(INotesRepository noteRepository, NotesUpdateInput noteInput, int noteId, int practitionerId)
+    public static async Task UpdateNoteAsync(INotesRepository noteRepository, NotesUpdateInput noteInput, int noteId)
     {
-        await noteRepository.UpdateNoteAsync(noteInput, noteId, practitionerId);
+        await noteRepository.UpdateNoteAsync(noteInput, noteId);
     }
 }

@@ -34,7 +34,8 @@
                         <td>@Html.DisplayFor(noteItem => note.Note)</td>
                         <td>
                             <p>
-                                <a href="~/Notes/NoteDetailsEdit" class="btn btn-primary">Edit</a>
+                                <a href="@Url.Action("NoteDetails", "Notes", new { id = note.NoteId })">View Details</a>
+                                @* <a href="~/Notes/NoteDetailsEdit" class="btn btn-primary">Details</a> *@
                             </p>
                         </td>
                     </tr>
