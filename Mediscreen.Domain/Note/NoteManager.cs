@@ -19,9 +19,9 @@ public class NoteManager
         return NotesOutput.Render(notes);
     }
 
-    public static async Task CreateNoteAsync(INotesRepository noteRepository, NotesCreateInput note, int practitionerId)
+    public static async Task CreateNoteAsync(INotesRepository noteRepository, NotesCreateInput note)
     {
-        await noteRepository.CreateNoteAsync(note, practitionerId);
+        await noteRepository.CreateNoteAsync(note);
     }
 
     public static async Task UpdateNoteAsync(INotesRepository noteRepository, NotesUpdateInput noteInput, int noteId)

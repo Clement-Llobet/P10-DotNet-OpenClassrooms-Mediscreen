@@ -1,6 +1,8 @@
-﻿using Mediscreen.UI.Controllers.Services.NotesService;
+﻿using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
+using Mediscreen.UI.Controllers.Services.NotesService;
 using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mediscreen.UI.Controllers;
@@ -8,10 +10,12 @@ namespace Mediscreen.UI.Controllers;
 public class NotesController : Controller
 {
     private readonly INotesService _noteService;
+    private readonly UserManager<User> _userManager;
 
-    public NotesController(INotesService noteService)
+    public NotesController(INotesService noteService, UserManager<User> userManager)
     {
         _noteService = noteService;
+        _userManager = userManager;
     }
 
     // GET: NotesController/Details/5
@@ -28,20 +32,40 @@ public class NotesController : Controller
     }
 
     // GET: NotesController/Create
-    public ActionResult Create()
+    public ActionResult NoteDetailsCreate(int id)
     {
-        return View();
+        NotesViewModel noteViewModel = new()
+        {
+            PatientId = id,
+        };
+
+        return View(noteViewModel);
     }
 
     // POST: NotesController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public async Task<ActionResult> NoteDetailsCreate(NotesViewModel notesViewModel)
     {
         try
         {
-            return View();
-            //return RedirectToAction(nameof(Index));
+            var practitioner = await _userManager.GetUserAsync(User);
+
+            if (practitioner == null)
+            {
+                return NotFound();
+            }
+
+            var note = new NotesViewModel
+            {
+                PatientId = notesViewModel.PatientId,
+                Note = notesViewModel.Note,
+                Practitioner = practitioner.Id,
+                CreatedDate = DateTime.Now,
+            };
+
+            var noteCreated = await _noteService.CreateNote(note);
+            return RedirectToAction(nameof(NoteDetails), new { });
         }
         catch
         {

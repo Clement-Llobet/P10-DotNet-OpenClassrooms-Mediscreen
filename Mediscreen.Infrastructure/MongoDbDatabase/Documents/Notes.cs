@@ -13,7 +13,7 @@ public class Notes : INotes
     [BsonElement("note")]
     public string Note { get; set; } = string.Empty;
     [BsonElement("doctorId")]
-    public int DoctorId { get; set; }
+    public string DoctorId { get; set; } = string.Empty;
     [BsonElement("createdDate")]
     public DateTime CreatedDate { get; set; }
     [BsonElement("updatedDate")]

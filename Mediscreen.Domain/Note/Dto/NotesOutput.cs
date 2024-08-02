@@ -18,7 +18,7 @@ public record NotesOutput
             PatientId = notes.PatientId,
             Note = notes.Note,
             CreatedDate = notes.CreatedDate,
-            Practitioner = notes.DoctorId.ToString()
+            Practitioner = notes.DoctorId
         };
     }
 }

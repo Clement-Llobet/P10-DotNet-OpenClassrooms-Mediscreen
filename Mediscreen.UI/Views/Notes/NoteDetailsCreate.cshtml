@@ -1,0 +1,22 @@
+﻿@model Mediscreen.UI.Models.NotesViewModel
+
+@{
+    ViewData["Title"] = "Edit Patient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create new patient</h1>
+
+<div class="detail-page">
+    <div class="detail">
+        <form asp-action="NoteDetailsCreate" asp-controller="Notes" method="post">
+            <input name="_RequestVerificationToken" type="hidden" />
+            <input type="hidden" name="PatientId" placeholder="PatientId" value="@Model.PatientId" />
+            <input type="text" name="Note" placeholder="Note" />
+            <input type="hidden" name="Date" placeholder="Date" />
+            <input type="hidden" name="Practitioner" placeholder="Practitioner" />
+
+            <button>Submit</button>
+        </form>
+    </div>
+</div>

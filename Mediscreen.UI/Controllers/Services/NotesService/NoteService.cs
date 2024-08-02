@@ -19,7 +19,7 @@ public class NoteService : INotesService
         return env.IsDevelopment() ? "http://host.docker.internal:65255" : $"https://host.docker.internal:65256";
     }
 
-    public Task<NotesViewModel> CreateNote(NotesViewModel note)
+    public async Task<HttpResponseMessage> CreateNote(NotesViewModel note)
     {
         var noteInputCreate = new NotesCreateInput
         {
@@ -30,10 +30,10 @@ public class NoteService : INotesService
             Practitioner = note.Practitioner
         };
 
-        var response = _client.PostAsJsonAsync($"{_baseUrl}/api/notes", noteInputCreate);
-        response.Result.EnsureSuccessStatusCode();
+        var response = await _client.PostAsJsonAsync($"{_baseUrl}/api/notes", noteInputCreate);
+        response.EnsureSuccessStatusCode();
 
-        return Task.FromResult(note);
+        return response;
     }
 
     public async Task<IEnumerable<NotesViewModel>> GetAllPatientNotes(int patientId)
