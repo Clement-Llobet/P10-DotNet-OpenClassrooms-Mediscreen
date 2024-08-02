@@ -4,8 +4,8 @@ namespace Mediscreen.UI.Controllers.Services.NotesService;
 
 public interface INotesService
 {
-    Task<IEnumerable<NotesViewModel>> GetAllPatientNotes();
-    Task<NotesViewModel> GetPatientNoteById(int id);
-    Task<NotesViewModel> UpdateNote(int id, NotesViewModel note);
+    Task<IEnumerable<NotesViewModel>> GetAllPatientNotes(int patientId);
+    Task<NotesViewModel> GetPatientNoteById(int noteId);
+    Task<NotesViewModel> UpdateNote(int noteId, NotesViewModel note);
     Task<NotesViewModel> CreateNote(NotesViewModel note);
 }

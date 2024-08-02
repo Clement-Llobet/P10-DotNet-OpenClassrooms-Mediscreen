@@ -34,7 +34,7 @@ public class PatientController : Controller
             return NotFound();
         }
 
-        var notes = await _noteService.GetAllPatientNotes();
+        var notes = await _noteService.GetAllPatientNotes(id);
         patient.Notes = notes.Where(note => note.PatientId == id).ToList();
 
         return View(patient);
@@ -78,27 +78,6 @@ public class PatientController : Controller
         {
             var userUpdated = await _patientService.UpdatePatient(id, patient);
             return RedirectToAction(nameof(PatientDetails), new { id });
-        }
-        catch
-        {
-            return View();
-        }
-    }
-
-    // GET: PatientController/Delete/5
-    public ActionResult Delete(int id)
-    {
-        return View();
-    }
-
-    // POST: PatientController/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
-    {
-        try
-        {
-            return RedirectToAction(nameof(Index));
         }
         catch
         {

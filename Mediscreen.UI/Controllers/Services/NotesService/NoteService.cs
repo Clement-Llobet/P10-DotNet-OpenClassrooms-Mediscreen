@@ -36,13 +36,13 @@ public class NoteService : INotesService
         return Task.FromResult(note);
     }
 
-    public async Task<IEnumerable<NotesViewModel>> GetAllPatientNotes()
+    public async Task<IEnumerable<NotesViewModel>> GetAllPatientNotes(int patientId)
     {
-        var response = await _client.GetAsync($"{_baseUrl}/api/notes");
+        var response = await _client.GetAsync($"{_baseUrl}/api/notes/patient/{patientId}");
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadFromJsonAsync<IEnumerable<NotesViewModel>>();
-        return content ?? new List<NotesViewModel>();
+        return content ?? [];
     }
 
     public async Task<NotesViewModel> GetPatientNoteById(int id) 

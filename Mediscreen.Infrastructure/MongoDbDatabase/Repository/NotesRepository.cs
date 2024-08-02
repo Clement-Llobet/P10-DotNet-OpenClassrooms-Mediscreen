@@ -1,7 +1,6 @@
 ﻿using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
 using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Mediscreen.Infrastructure.MongoDbDatabase.Repository;

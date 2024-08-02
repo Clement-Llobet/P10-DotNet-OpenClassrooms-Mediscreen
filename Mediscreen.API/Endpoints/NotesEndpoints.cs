@@ -12,7 +12,7 @@ public static class NotesEndpoints
 {
     public static void MapNotesEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(ApiRoutes.Notes.ListNotes, async (INotesRepository noteRepository, int patientId, IDistributedCache cache) =>
+        app.MapGet(ApiRoutes.Notes.ListNotes, async (INotesRepository noteRepository, IDistributedCache cache, int patientId) =>
         {
             var cacheKey = $"ListNotes-{patientId}";
             var notes = await CacheHelper.GetFromCacheAsync<IEnumerable<NotesOutput>>(cache, cacheKey);
