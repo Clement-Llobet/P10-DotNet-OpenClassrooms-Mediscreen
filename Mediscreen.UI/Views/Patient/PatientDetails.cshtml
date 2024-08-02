@@ -32,6 +32,11 @@
                     <tr>
                         <td>@Html.DisplayFor(noteItem => note.NoteId)</td>
                         <td>@Html.DisplayFor(noteItem => note.Note)</td>
+                        <td>
+                            <p>
+                                <a href="~/Notes/NoteDetailsEdit" class="btn btn-primary">Edit</a>
+                            </p>
+                        </td>
                     </tr>
                 }
             </tbody>
