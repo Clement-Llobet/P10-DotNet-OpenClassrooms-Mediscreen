@@ -42,7 +42,7 @@ public static class NotesEndpoints
        }).WithTags(ApiRoutes.Notes.Tag)
          .WithMetadata(ApiRoutes.Notes.GetNoteMetadata);
         
-        app.MapPost(ApiRoutes.Notes.CreateNote, async (INotesRepository noteRepository, [Bind("PatientId,PractitionerId,Note")] NotesCreateInput noteCreateInput, int practitionerId) => await NoteManager.CreateNoteAsync(noteRepository, noteCreateInput, practitionerId))
+        app.MapPost(ApiRoutes.Notes.CreateNote, async (INotesRepository noteRepository, [Bind("PatientId,PractitionerId,Note")] NotesCreateInput noteCreateInput) => await NoteManager.CreateNoteAsync(noteRepository, noteCreateInput))
             .WithTags(ApiRoutes.Notes.Tag)
             .WithMetadata(ApiRoutes.Notes.CreateNoteMetadata);
 

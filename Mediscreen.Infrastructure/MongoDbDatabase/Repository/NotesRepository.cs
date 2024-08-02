@@ -25,14 +25,14 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         return await _notes.Find(note => note.NoteId == noteId).FirstOrDefaultAsync();
     }
 
-    public async Task CreateNoteAsync(NotesCreateInput noteInput, int practitionerId)
+    public async Task CreateNoteAsync(NotesCreateInput noteInput)
     {
         var newNote = new Notes
         {
             NoteId = Guid.NewGuid().GetHashCode(),
             PatientId = noteInput.PatientId,
             Note = noteInput.Note ?? "",
-            DoctorId = practitionerId,
+            DoctorId = noteInput.Practitioner!,
             CreatedDate = noteInput.CreatedDate,
             LastUpdatdDate = noteInput.CreatedDate
         };
@@ -46,7 +46,7 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             NoteId = noteId,
             PatientId = notesInput.PatientId,
             Note = notesInput.Note ?? "",
-            DoctorId = Convert.ToInt32(notesInput.Practitioner),
+            DoctorId = notesInput.Practitioner,
             LastUpdatdDate = notesInput.CurrentDateTime
         };
 
