@@ -25,9 +25,10 @@ public class NoteService : INotesService
         {
             PatientId = note.PatientId,
             NoteId = note.NoteId,
-            Note = note.Note,
+            Comment = note.Comment,
             CreatedDate = DateTime.Now,
-            Practitioner = note.Practitioner
+            Practitioner = note.Practitioner,
+            Triggers = note.Triggers
         };
 
         var response = await _client.PostAsJsonAsync($"{_baseUrl}/api/notes", noteInputCreate);
@@ -61,9 +62,10 @@ public class NoteService : INotesService
         {
             NoteId = note.NoteId,
             PatientId = note.PatientId,
-            Note = note.Note,
+            Comment = note.Comment,
             CurrentDateTime = DateTime.Now,
-            Practitioner = note.Practitioner
+            Practitioner = note.Practitioner,
+            Triggers = note.Triggers
         };
 
         var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{noteId}", noteInputUpdate);

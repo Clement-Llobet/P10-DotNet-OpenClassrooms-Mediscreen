@@ -55,15 +55,10 @@ public class NotesController : Controller
                 return NotFound();
             }
 
-            var note = new NotesViewModel
-            {
-                PatientId = notesViewModel.PatientId,
-                Note = notesViewModel.Note,
-                Practitioner = practitioner.Id,
-                CreatedDate = DateTime.Now,
-            };
+            notesViewModel.Practitioner = practitioner.Id;
+            notesViewModel.CreatedDate = DateTime.Now;
 
-            var noteCreated = await _noteService.CreateNote(note);
+            var noteCreated = await _noteService.CreateNote(notesViewModel);
 
             return RedirectToAction("ValidationCreation");
         }

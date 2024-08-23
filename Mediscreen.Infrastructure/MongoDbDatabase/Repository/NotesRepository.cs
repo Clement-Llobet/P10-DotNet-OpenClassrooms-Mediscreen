@@ -31,10 +31,11 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         {
             NoteId = Guid.NewGuid().GetHashCode(),
             PatientId = noteInput.PatientId,
-            Note = noteInput.Note ?? "",
+            Comment = noteInput.Comment ?? "",
             DoctorId = noteInput.Practitioner!,
             CreatedDate = noteInput.CreatedDate,
-            LastUpdatdDate = noteInput.CreatedDate
+            LastUpdatedDate = noteInput.CreatedDate,
+            Triggers = noteInput.Triggers.Select(trigger => Enum.Parse<Triggers>(trigger.Trim())).ToList()
         };
         await _notes.InsertOneAsync(newNote);
     }
@@ -45,9 +46,9 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         {
             NoteId = noteId,
             PatientId = notesInput.PatientId,
-            Note = notesInput.Note ?? "",
+            Comment = notesInput.Note ?? "",
             DoctorId = notesInput.Practitioner,
-            LastUpdatdDate = notesInput.CurrentDateTime
+            LastUpdatedDate = notesInput.CurrentDateTime
         };
 
         await _notes.ReplaceOneAsync(note => note.NoteId == notesInput.NoteId, updatedNote);

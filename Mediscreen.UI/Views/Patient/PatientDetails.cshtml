@@ -27,16 +27,23 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Note Id</th>
-                    <th>Note Comment</th>
+                    <th>Comment</th>
+                    <th>Triggers</th>
+                    <th>Risk level</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var note in Model.Notes)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(noteItem => note.NoteId)</td>
-                        <td>@Html.DisplayFor(noteItem => note.Note)</td>
+                        <td>@Html.DisplayFor(noteItem => note.Comment)</td>
+                        <td>
+                            @foreach (var trigger in note.Triggers)
+                            {
+                                <p>@trigger</p>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(noteItem => note.RiskLevel)</td>
                         <td>
                             <p>
                                 <a href="@Url.Action("NoteDetails", "Notes", new { id = note.NoteId })">View Details</a>
