@@ -56,7 +56,7 @@ public class NoteService : INotesService
         return content ?? throw new InvalidOperationException("Note not found");
     }
 
-    public async Task<NotesViewModel> UpdateNote(int noteId, NotesViewModel note)
+    public async Task<NotesViewModel> UpdateNote(NotesViewModel note)
     {
         var noteInputUpdate = new NotesUpdateInput
         {
@@ -68,7 +68,7 @@ public class NoteService : INotesService
             Triggers = note.Triggers
         };
 
-        var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{noteId}", noteInputUpdate);
+        var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{note.NoteId}", noteInputUpdate);
         response.EnsureSuccessStatusCode();
 
         return note;

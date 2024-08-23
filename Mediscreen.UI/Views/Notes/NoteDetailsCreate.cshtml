@@ -12,7 +12,7 @@
         <form asp-action="NoteDetailsCreate" asp-controller="Notes" method="post">
             <input name="_RequestVerificationToken" type="hidden" />
             <input type="hidden" name="PatientId" placeholder="PatientId" value="@Model.PatientId" />
-            <input type="text" name="Note" placeholder="Note" />
+            <input type="text" name="Comment" placeholder="Note" />
             <input type="hidden" name="Date" placeholder="Date" />
             <input type="hidden" name="Practitioner" placeholder="Practitioner" />
             <p>

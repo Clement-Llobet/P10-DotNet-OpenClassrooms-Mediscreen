@@ -16,5 +16,12 @@
         <p><span>@Html.DisplayNameFor(model => model.PatientId) : </span>@Model.PatientId</p>
         <p><span>@Html.DisplayNameFor(model => model.CreatedDate) : </span>@Model.CreatedDate</p>
 
+        <p>Triggers</p>
+        <ul>
+            @foreach (var trigger in Model.Triggers)
+            {
+                <li>@trigger</li>
+            }
+        </ul>
     </div>
 </div>

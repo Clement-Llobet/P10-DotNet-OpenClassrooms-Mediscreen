@@ -44,11 +44,12 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
     {
         var updatedNote = new Notes
         {
-            NoteId = noteId,
+            NoteId = notesInput.NoteId,
             PatientId = notesInput.PatientId,
-            Comment = notesInput.Note ?? "",
+            Comment = notesInput.Comment ?? "",
             DoctorId = notesInput.Practitioner,
-            LastUpdatedDate = notesInput.CurrentDateTime
+            LastUpdatedDate = notesInput.CurrentDateTime,
+            Triggers = notesInput.Triggers!.Select(trigger => Enum.Parse<Triggers>(trigger.Trim())).ToList()
         };
 
         await _notes.ReplaceOneAsync(note => note.NoteId == notesInput.NoteId, updatedNote);
