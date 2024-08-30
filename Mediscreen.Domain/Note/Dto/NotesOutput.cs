@@ -8,8 +8,9 @@ public record NotesOutput
     public required int PatientId { get; set; }
     public string Comment { get; set; } = string.Empty;
     public List<string> Triggers { get; set; } = new();
-    public DateTime CreatedDate { get; set; }
+    public DateTime LastUpdatedDate { get; set; }
     public string Practitioner { get; set; } = string.Empty;
+    public string RiskLevel { get; set; } = string.Empty;
 
     public static NotesOutput Render(INotes notes)
     {
@@ -19,8 +20,9 @@ public record NotesOutput
             PatientId = notes.PatientId,
             Comment = notes.Comment,
             Triggers = notes.Triggers.Select(trigger => trigger.ToString()).ToList(),
-            CreatedDate = notes.CreatedDate,
-            Practitioner = notes.DoctorId
+            LastUpdatedDate = notes.LastUpdatedDate,
+            Practitioner = notes.DoctorId,
+            RiskLevel = notes.RiskLevel
         };
     }
 }

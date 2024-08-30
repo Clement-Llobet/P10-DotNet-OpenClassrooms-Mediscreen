@@ -27,15 +27,17 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th>Last Note Update</th>
                     <th>Comment</th>
                     <th>Triggers</th>
-                    <th>Risk level</th>
+                    <th>Risk Level</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var note in Model.Notes)
                 {
                     <tr>
+                        <td>@Html.DisplayFor(noteItem => note.LastUpdatedDate)</td>
                         <td>@Html.DisplayFor(noteItem => note.Comment)</td>
                         <td>
                             @foreach (var trigger in note.Triggers)

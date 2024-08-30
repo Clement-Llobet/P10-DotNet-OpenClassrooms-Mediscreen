@@ -8,4 +8,6 @@ public interface INotes
     public List<Triggers> Triggers { get; set; }
     public string DoctorId { get; set; }
     public DateTime CreatedDate { get; set; }
+    public DateTime LastUpdatedDate { get; set; }
+    public string RiskLevel { get; set; }
 }
