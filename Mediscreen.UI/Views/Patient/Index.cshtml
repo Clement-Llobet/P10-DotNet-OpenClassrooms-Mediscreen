@@ -11,30 +11,15 @@
     <p>
         <a href="~/Patient/CreatePatient" class="btn btn-primary">Create new patient</a>
     </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Birth Date</th>
-                <th>HomeAddress</th>
-                <th>PhoneNumber</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var patient in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(patientItem => patient.Id)</td>
-                    <td>@Html.DisplayFor(patientItem => patient.FirstName)</td>
-                    <td>@Html.DisplayFor(patientItem => patient.LastName)</td>
-                    <td>@Html.DisplayFor(patientItem => patient.BirthDate)</td>
-                    <td>@Html.DisplayFor(patientItem => patient.HomeAddress)</td>
-                    <td>@Html.DisplayFor(patientItem => patient.PhoneNumber)</td>
-                    <td><a href="@Url.Action("PatientDetails", "Patient", new { id = patient.Id })">View Details</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="card-deck d-flex flex-row justify-content align-items">
+        @foreach (var patient in Model)
+        {
+            <div class="card w-25">
+                <div class="card-body">
+                    <h5 class="card-title">@patient.FirstName @patient.LastName</h5>
+                    <a href="@Url.Action("PatientDetails", "Patient", new { id = patient.Id })" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        }
+    </div>
 </div>

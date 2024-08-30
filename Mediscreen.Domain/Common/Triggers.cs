@@ -8,6 +8,7 @@
     Abnormal,
     Cholesterol,
     Dizziness,
+    Relapse,
     Reaction,
     Antibodies
 }
