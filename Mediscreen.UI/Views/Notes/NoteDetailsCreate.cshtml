@@ -12,11 +12,25 @@
         <form asp-action="NoteDetailsCreate" asp-controller="Notes" method="post">
             <input name="_RequestVerificationToken" type="hidden" />
             <input type="hidden" name="PatientId" placeholder="PatientId" value="@Model.PatientId" />
-            <input type="text" name="Note" placeholder="Note" />
+            <input type="text" name="Comment" placeholder="Note" />
             <input type="hidden" name="Date" placeholder="Date" />
             <input type="hidden" name="Practitioner" placeholder="Practitioner" />
+            <p>
+                Is patient has any of the following triggers?<br/>
+                <input type="checkbox" name="Triggers" value="HemoglobinA1C" /><label for="HemoglobinA1C">Hemoglobin A1C</label><br/>
+                <input type="checkbox" name="Triggers" value="Microalbumin" /><label for="Microalbumin">Microalbumin</label><br/>
+                <input type="checkbox" name="Triggers" value="BodyHeight" /><label for="BodyWeight">Body Height</label><br/>
+                <input type="checkbox" name="Triggers" value="BodyWeight" /><label for="BodyWeight">Body Weight</label><br/>
+                <input type="checkbox" name="Triggers" value="Smoker" /><label for="Smoker">Smoker</label><br/>
+                <input type="checkbox" name="Triggers" value="Abnormal" /><label for="Abnormal">Abnormal</label><br/>
+                <input type="checkbox" name="Triggers" value="Cholesterol" /><label for="Cholesterol">Cholesterol</label><br/>
+                <input type="checkbox" name="Triggers" value="Dizziness" /><label for="Dizziness">Dizziness</label><br/>
+                <input type="checkbox" name="Triggers" value="Relapse" /><label for="Relapse">Relapse</label><br/>
+                <input type="checkbox" name="Triggers" value="Reaction" /><label for="Reaction">Reaction</label><br/>
+                <input type="checkbox" name="Triggers" value="Antibodies" /><label for="Antibodies">Antibodies</label>
+            </p>
 
-            <button>Submit</button>
+            <button type=submit>Submit</button>
         </form>
     </div>
 </div>

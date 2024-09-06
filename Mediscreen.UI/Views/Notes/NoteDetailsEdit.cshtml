@@ -13,9 +13,24 @@
             <input name="_RequestVerificationToken" type="hidden" />
             <input type="hidden" name="NoteId" value="@Model.NoteId" />
             <input type="hidden" name="PatientId" value="@Model.PatientId" />
-            <textarea type="text" name="Note">@Model.Note</textarea> />
+            <textarea type="text" name="Comment">@Model.Comment</textarea> />
             <input type="hidden" name="CreatedDate" value="@Model.CreatedDate" />
             <input type="hidden" name="Practitioner" value="@Model.Practitioner" />
+
+            <p>
+                Is patient has any of the following triggers?<br />
+                <input type="checkbox" name="Triggers" value="HemoglobinA1C" /><label for="HemoglobinA1C">Hemoglobin A1C</label><br />
+                <input type="checkbox" name="Triggers" value="Microalbumin" /><label for="Microalbumin">Microalbumin</label><br />
+                <input type="checkbox" name="Triggers" value="BodyHeight" /><label for="BodyWeight">Body Height</label><br />
+                <input type="checkbox" name="Triggers" value="BodyWeight" /><label for="BodyWeight">Body Weight</label><br />
+                <input type="checkbox" name="Triggers" value="Smoker" /><label for="Smoker">Smoker</label><br />
+                <input type="checkbox" name="Triggers" value="Abnormal" /><label for="Abnormal">Abnormal</label><br />
+                <input type="checkbox" name="Triggers" value="Cholesterol" /><label for="Cholesterol">Cholesterol</label><br />
+                <input type="checkbox" name="Triggers" value="Dizziness" /><label for="Dizziness">Dizziness</label><br />
+                <input type="checkbox" name="Triggers" value="Relapse" /><label for="Relapse">Relapse</label><br />
+                <input type="checkbox" name="Triggers" value="Reaction" /><label for="Reaction">Reaction</label><br />
+                <input type="checkbox" name="Triggers" value="Antibodies" /><label for="Antibodies">Antibodies</label>
+            </p>
 
             <button>Submit</button>
         </form>

@@ -10,12 +10,18 @@ public class Notes : INotes
     public int NoteId { get; set; }
     [BsonElement("patientId")]
     public int PatientId { get; set; }
+    [BsonElement("noteDate")]
+    public DateTime NoteDate { get; set; }
     [BsonElement("note")]
-    public string Note { get; set; } = string.Empty;
+    public string Comment { get; set; } = string.Empty;
+    [BsonElement("triggersList")]
+    public List<Triggers> Triggers { get; set; } = new();
     [BsonElement("doctorId")]
     public string DoctorId { get; set; } = string.Empty;
     [BsonElement("createdDate")]
     public DateTime CreatedDate { get; set; }
     [BsonElement("updatedDate")]
-    public DateTime LastUpdatdDate { get; set; }
+    public DateTime LastUpdatedDate { get; set; }
+    [BsonElement("riskLevel")]
+    public string RiskLevel { get; set; } = string.Empty;
 }

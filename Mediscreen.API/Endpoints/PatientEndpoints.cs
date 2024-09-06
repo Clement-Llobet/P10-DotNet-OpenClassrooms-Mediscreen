@@ -18,6 +18,7 @@ public static class PatientEndpoints
             var cacheKey = "ListPatients";
             var patients = await CacheHelper.GetFromCacheAsync<List<PatientOutput>>(cache, cacheKey);
 
+            
             if (patients == null)
             {
                 patients = PatientManager.ListPatients(patientRepository, () => patientRepository.ToList());

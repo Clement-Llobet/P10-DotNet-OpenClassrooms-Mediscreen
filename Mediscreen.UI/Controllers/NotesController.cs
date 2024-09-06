@@ -55,15 +55,10 @@ public class NotesController : Controller
                 return NotFound();
             }
 
-            var note = new NotesViewModel
-            {
-                PatientId = notesViewModel.PatientId,
-                Note = notesViewModel.Note,
-                Practitioner = practitioner.Id,
-                CreatedDate = DateTime.Now,
-            };
+            notesViewModel.Practitioner = practitioner.Id;
+            notesViewModel.CreatedDate = DateTime.Now;
 
-            var noteCreated = await _noteService.CreateNote(note);
+            var noteCreated = await _noteService.CreateNote(notesViewModel);
 
             return RedirectToAction("ValidationCreation");
         }
@@ -89,12 +84,12 @@ public class NotesController : Controller
     // POST: NotesController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> NoteDetailsEditPut(int id, NotesViewModel notesViewModel)
+    public async Task<ActionResult> NoteDetailsEditPut(NotesViewModel notesViewModel)
     {
         try
         {
-            var noteUpdated = await _noteService.UpdateNote(id, notesViewModel);
-            return RedirectToAction(nameof(NoteDetails), new { id });
+            var noteUpdated = await _noteService.UpdateNote(notesViewModel);
+            return RedirectToAction(nameof(NoteDetails), new { Id = notesViewModel.NoteId });
         }
         catch
         {

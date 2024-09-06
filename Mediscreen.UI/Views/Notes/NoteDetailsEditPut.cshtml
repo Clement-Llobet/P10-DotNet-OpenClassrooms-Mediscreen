@@ -12,7 +12,7 @@
         <form asp-action="NoteDetailsEditPut" asp-controller="Notes" method="post">
             <input name="_RequestVerificationToken" type="hidden" />
             <input type="hidden" name="NoteId" value="@Model.NoteId" />
-            <textarea type="text" name="Comment">@Model.Note</textarea> />
+            <textarea type="text" name="Comment">@Model.Comment</textarea> />
 
             <button type="submit">Submit</button>
         </form>
