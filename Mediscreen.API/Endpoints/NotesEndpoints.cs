@@ -3,6 +3,7 @@ using Mediscreen.API.Routes;
 using Mediscreen.Domain.Note;
 using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Triggers.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -42,11 +43,11 @@ public static class NotesEndpoints
        }).WithTags(ApiRoutes.Notes.Tag)
          .WithMetadata(ApiRoutes.Notes.GetNoteMetadata);
         
-        app.MapPost(ApiRoutes.Notes.CreateNote, async (INotesRepository noteRepository, [Bind("PatientId,PractitionerId,Note")] NotesCreateInput noteCreateInput) => await NoteManager.CreateNoteAsync(noteRepository, noteCreateInput))
+        app.MapPost(ApiRoutes.Notes.CreateNote, async (INotesRepository noteRepository, ITriggersRepository triggersRepository, [Bind("PatientId,PractitionerId,Note")] NotesCreateInput noteCreateInput) => await NoteManager.CreateNoteAsync(noteRepository, triggersRepository, noteCreateInput))
             .WithTags(ApiRoutes.Notes.Tag)
             .WithMetadata(ApiRoutes.Notes.CreateNoteMetadata);
 
-        app.MapPut(ApiRoutes.Notes.UpdateNote, async (INotesRepository noteRepository, [Bind("NoteId,PatientId,PractitionerId,Note")] NotesUpdateInput noteUpdateInput, int noteId) => await NoteManager.UpdateNoteAsync(noteRepository, noteUpdateInput, noteId))
+        app.MapPut(ApiRoutes.Notes.UpdateNote, async (INotesRepository noteRepository, ITriggersRepository triggersRepository, [Bind("NoteId,PatientId,PractitionerId,Note")] NotesUpdateInput noteUpdateInput, int noteId) => await NoteManager.UpdateNoteAsync(noteRepository, triggersRepository, noteUpdateInput, noteId))
             .WithTags(ApiRoutes.Notes.Tag)
             .WithMetadata(ApiRoutes.Notes.UpdateNoteMetadata);
     }

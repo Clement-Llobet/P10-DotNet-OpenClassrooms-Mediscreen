@@ -1,4 +1,5 @@
 ﻿using Mediscreen.Domain.Note.Contracts;
+using Mediscreen.Domain.Triggers.Contracts;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Mediscreen.Infrastructure.MongoDbDatabase.Documents;
@@ -15,7 +16,7 @@ public class Notes : INotes
     [BsonElement("note")]
     public string Comment { get; set; } = string.Empty;
     [BsonElement("triggersList")]
-    public List<Triggers> Triggers { get; set; } = new();
+    public List<ITriggers> Triggers { get; set; } = [];
     [BsonElement("doctorId")]
     public string DoctorId { get; set; } = string.Empty;
     [BsonElement("createdDate")]

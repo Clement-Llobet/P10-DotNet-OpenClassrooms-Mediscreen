@@ -1,4 +1,6 @@
 ﻿using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Triggers.Dto;
+using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.UI.Models;
 
 namespace Mediscreen.UI.Controllers.Services.NotesService;
@@ -28,7 +30,7 @@ public class NoteService : INotesService
             Comment = note.Comment,
             CreatedDate = DateTime.Now,
             Practitioner = note.Practitioner,
-            Triggers = note.Triggers
+            Triggers = note.Triggers.Select(t => new TriggerDto.Render(t))
         };
 
         var response = await _client.PostAsJsonAsync($"{_baseUrl}/api/notes", noteInputCreate);
@@ -65,7 +67,11 @@ public class NoteService : INotesService
             Comment = note.Comment,
             CurrentDateTime = DateTime.Now,
             Practitioner = note.Practitioner,
-            Triggers = note.Triggers
+            Triggers = note.Triggers.Select(t => new TriggerDto
+            {
+                TriggerId = t.TriggerId,
+                TriggerName = t.TriggerName
+            }).ToList()
         };
 
         var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{note.NoteId}", noteInputUpdate);

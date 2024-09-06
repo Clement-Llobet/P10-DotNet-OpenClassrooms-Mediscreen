@@ -2,7 +2,6 @@
 using Mediscreen.UI.Controllers.Services.PatientServices;
 using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace Mediscreen.UI.Controllers;
 
@@ -38,7 +37,7 @@ public class PatientController : Controller
         var notes = await _noteService.GetAllPatientNotes(id);
         patient.Notes = notes
             .Where(note => note.PatientId == id)
-            .OrderByDescending(note => note.LastUpdatedDate)
+            .OrderByDescending(note => note.CreatedDate)
             .ToList();
 
         return View(patient);

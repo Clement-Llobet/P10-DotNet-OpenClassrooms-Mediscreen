@@ -37,8 +37,6 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         if (patient == null)
             throw new Exception("Patient not found");
 
-        var triggersList = noteInput.Triggers.Select(trigger => Enum.Parse<Triggers>(trigger.Trim())).ToList();
-
         var newNote = new Notes
         {
             NoteId = Guid.NewGuid().GetHashCode(),
@@ -47,8 +45,8 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             DoctorId = noteInput.Practitioner!,
             CreatedDate = noteInput.CreatedDate,
             LastUpdatedDate = noteInput.CreatedDate,
-            Triggers = triggersList,
-            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, triggersList).ToString()
+            Triggers = noteInput.Triggers,
+            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count()).ToString()
         };
         await _notes.InsertOneAsync(newNote);
     }
@@ -60,8 +58,6 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         if (patient == null)
             throw new Exception("Patient not found");
 
-        var triggersList = noteInput.Triggers.Select(trigger => Enum.Parse<Triggers>(trigger.Trim())).ToList();
-
         var updatedNote = new Notes
         {
             NoteId = noteInput.NoteId,
@@ -69,8 +65,8 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             Comment = noteInput.Comment ?? "",
             LastUpdatedDate = DateTime.Now,
             DoctorId = noteInput.Practitioner,
-            Triggers = triggersList,
-            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, triggersList).ToString()
+            Triggers = noteInput.Triggers,
+            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count()).ToString()
         };
 
         await _notes.ReplaceOneAsync(note => note.NoteId == noteInput.NoteId, updatedNote);

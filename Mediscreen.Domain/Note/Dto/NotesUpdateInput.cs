@@ -1,4 +1,7 @@
-﻿namespace Mediscreen.Domain.Note.Dto;
+﻿using Mediscreen.Domain.Triggers.Contracts;
+using Mediscreen.Domain.Triggers.Dto;
+
+namespace Mediscreen.Domain.Note.Dto;
 
 public record NotesUpdateInput
 {
@@ -6,7 +9,7 @@ public record NotesUpdateInput
     public required int PatientId { get; set; }
     public DateTime NoteDate { get; set; }
     public string? Comment { get; set; }
-    public List<string> Triggers { get; set; } = new();
+    public List<ITriggers> Triggers { get; set; } = new();
     public required DateTime CurrentDateTime { get; set; }
     public required string Practitioner { get; set; } 
 }

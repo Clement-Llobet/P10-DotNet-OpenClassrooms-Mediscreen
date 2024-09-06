@@ -1,5 +1,6 @@
 ﻿using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Triggers.Contracts;
 
 namespace Mediscreen.Domain.Note;
 
@@ -19,13 +20,15 @@ public class NoteManager
         return NotesOutput.Render(notes);
     }
 
-    public static async Task CreateNoteAsync(INotesRepository noteRepository, NotesCreateInput note)
+    public static async Task CreateNoteAsync(INotesRepository noteRepository, ITriggersRepository triggersRepository, NotesCreateInput note)
     {
+        note.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger.TriggerId).Result).ToList();
         await noteRepository.CreateNoteAsync(note);
     }
 
-    public static async Task UpdateNoteAsync(INotesRepository noteRepository, NotesUpdateInput noteInput, int noteId)
+    public static async Task UpdateNoteAsync(INotesRepository noteRepository, ITriggersRepository triggersRepository, NotesUpdateInput noteInput, int noteId)
     {
+        noteInput.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger.TriggerId).Result);
         await noteRepository.UpdateNoteAsync(noteInput, noteId);
     }
 }
