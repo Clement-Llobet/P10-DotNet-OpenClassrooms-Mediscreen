@@ -22,7 +22,7 @@ public class NoteManager
 
     public static async Task CreateNoteAsync(INotesRepository noteRepository, ITriggersRepository triggersRepository, NotesCreateInput note)
     {
-        note.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger.TriggerId).Result).ToList();
+        note.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger.TriggerId).Result);
         await noteRepository.CreateNoteAsync(note);
     }
 

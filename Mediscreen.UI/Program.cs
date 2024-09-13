@@ -2,6 +2,7 @@ using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Mediscreen.UI.Controllers.Services.NotesService;
 using Mediscreen.UI.Controllers.Services.PatientServices;
+using Mediscreen.UI.Controllers.Services.TriggersService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Authentication;
@@ -46,6 +47,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<IPatientService, PatientService>();
 builder.Services.AddTransient<INotesService, NoteService>();
+builder.Services.AddTransient<ITriggersService, TriggersService>();
 builder.Services.AddControllersWithViews();
 
 if (builder.Environment.IsDevelopment())

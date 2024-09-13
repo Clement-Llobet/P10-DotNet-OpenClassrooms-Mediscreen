@@ -1,6 +1,8 @@
 ﻿using Mediscreen.Domain.Common;
 using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Triggers.Contracts;
+using Mediscreen.Domain.Triggers.Dto;
 using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
@@ -45,8 +47,12 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             DoctorId = noteInput.Practitioner!,
             CreatedDate = noteInput.CreatedDate,
             LastUpdatedDate = noteInput.CreatedDate,
-            Triggers = noteInput.Triggers,
-            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count()).ToString()
+            Triggers = noteInput.Triggers.Select(t => new Triggers
+            {
+                TriggerId = t.TriggerId,
+                TriggerName = t.TriggerName
+            }).Cast<ITriggers>().ToList(),
+            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count).ToString()
         };
         await _notes.InsertOneAsync(newNote);
     }
@@ -65,8 +71,12 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             Comment = noteInput.Comment ?? "",
             LastUpdatedDate = DateTime.Now,
             DoctorId = noteInput.Practitioner,
-            Triggers = noteInput.Triggers,
-            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count()).ToString()
+            Triggers = noteInput.Triggers.Select(t => new Triggers
+            {
+                TriggerId = t.TriggerId,
+                TriggerName = t.TriggerName
+            }).Cast<ITriggers>().ToList(),
+            RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count).ToString()
         };
 
         await _notes.ReplaceOneAsync(note => note.NoteId == noteInput.NoteId, updatedNote);

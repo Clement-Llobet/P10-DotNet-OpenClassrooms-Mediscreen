@@ -30,7 +30,11 @@ public class NoteService : INotesService
             Comment = note.Comment,
             CreatedDate = DateTime.Now,
             Practitioner = note.Practitioner,
-            Triggers = note.Triggers.Select(t => new TriggerDto.Render(t))
+            Triggers = note.Triggers.Select(t => new TriggerDto
+            {
+                TriggerId = t.TriggerId,
+                TriggerName = t.TriggerName
+            }).ToList()
         };
 
         var response = await _client.PostAsJsonAsync($"{_baseUrl}/api/notes", noteInputCreate);

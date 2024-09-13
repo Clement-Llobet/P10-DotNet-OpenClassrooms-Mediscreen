@@ -10,5 +10,4 @@ public class NotesViewModel
     public DateTime CreatedDate { get; set; }
     public DateTime LastUpdatedDate { get; set; }
     public string Practitioner { get; set; } = string.Empty;
-
 }

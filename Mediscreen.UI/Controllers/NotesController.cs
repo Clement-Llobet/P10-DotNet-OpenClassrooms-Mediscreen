@@ -1,5 +1,6 @@
 ﻿using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Mediscreen.UI.Controllers.Services.NotesService;
+using Mediscreen.UI.Controllers.Services.TriggersService;
 using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ namespace Mediscreen.UI.Controllers;
 public class NotesController : Controller
 {
     private readonly INotesService _noteService;
+    private readonly ITriggersService _triggersService;
     private readonly UserManager<User> _userManager;
 
-    public NotesController(INotesService noteService, UserManager<User> userManager)
+    public NotesController(INotesService noteService, ITriggersService triggersService, UserManager<User> userManager)
     {
         _noteService = noteService;
+        _triggersService = triggersService;
         _userManager = userManager;
     }
 
@@ -31,11 +34,14 @@ public class NotesController : Controller
     }
 
     // GET: NotesController/Create
-    public ActionResult NoteDetailsCreate(int id)
+    public async Task<ActionResult> NoteDetailsCreate(int id)
     {
+        var triggersList = await _triggersService.GetAllTriggers();
+
         NotesViewModel noteViewModel = new()
         {
             PatientId = id,
+            Triggers = triggersList.ToList()
         };
 
         return View(noteViewModel);

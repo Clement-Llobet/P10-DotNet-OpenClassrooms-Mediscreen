@@ -15,6 +15,11 @@ public class TriggersRepository : QueryableRepositoryBase<ITriggers>, ITriggersR
         _triggers = database.GetCollection<Triggers>("Triggers");
     }
 
+    public async Task<IEnumerable<ITriggers>> GetAllTriggersAsync()
+    {
+        return await _triggers.Find(trigger => true).ToListAsync();
+    }
+
     public async Task<ITriggers> GetTriggerAsync(int triggerId)
     {
         return await _triggers.Find(trigger => trigger.TriggerId == triggerId).FirstOrDefaultAsync();

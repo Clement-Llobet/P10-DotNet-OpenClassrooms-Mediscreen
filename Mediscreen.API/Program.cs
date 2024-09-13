@@ -61,5 +61,6 @@ app.UseAuthorization();
 
 app.MapPatientsEndpoints();
 app.MapNotesEndpoints();
+app.MapTriggersEndpoints();
 
 app.Run();
