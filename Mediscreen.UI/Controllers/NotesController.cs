@@ -38,7 +38,7 @@ public class NotesController : Controller
     {
         var triggersList = await _triggersService.GetAllTriggers();
 
-        NotesViewModel noteViewModel = new()
+        GetNotesViewModel noteViewModel = new()
         {
             PatientId = id,
             Triggers = triggersList.ToList()

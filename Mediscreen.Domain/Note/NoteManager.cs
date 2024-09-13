@@ -22,13 +22,12 @@ public class NoteManager
 
     public static async Task CreateNoteAsync(INotesRepository noteRepository, ITriggersRepository triggersRepository, NotesCreateInput note)
     {
-        note.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger.TriggerId).Result);
         await noteRepository.CreateNoteAsync(note);
     }
 
     public static async Task UpdateNoteAsync(INotesRepository noteRepository, ITriggersRepository triggersRepository, NotesUpdateInput noteInput, int noteId)
     {
-        noteInput.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger.TriggerId).Result);
+        noteInput.Triggers.Select(trigger => triggersRepository.GetTriggerAsync(trigger).Result);
         await noteRepository.UpdateNoteAsync(noteInput, noteId);
     }
 }

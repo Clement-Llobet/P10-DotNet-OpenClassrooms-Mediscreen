@@ -13,12 +13,14 @@ namespace Mediscreen.Infrastructure.MongoDbDatabase.Repository;
 public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
 {
     private readonly IMongoCollection<Notes> _notes;
+    private readonly IMongoCollection<Triggers> _triggers;
     private readonly MediscreenSqlServerContext _dbContext;
 
-    public NotesRepository(IQueryable<INotes> notes, MongoClient client, MediscreenSqlServerContext mediscreenSqlServerContext) : base(notes)
+    public NotesRepository(IQueryable<INotes> notes, IQueryable<ITriggers> triggers, MongoClient client, MediscreenSqlServerContext mediscreenSqlServerContext) : base(notes)
     {
         var database = client.GetDatabase("Mediscreen");
         _notes = database.GetCollection<Notes>("Notes");
+        _triggers = database.GetCollection<Triggers>("Triggers");
         _dbContext = mediscreenSqlServerContext;
     }
 
@@ -36,6 +38,8 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
     {
         var patient = await _dbContext.FindAsync<Patient>(noteInput.PatientId);
 
+        var triggers = await _triggers.Find(trigger => noteInput.Triggers.Contains(trigger.TriggerId)).ToListAsync();
+
         if (patient == null)
             throw new Exception("Patient not found");
 
@@ -47,11 +51,7 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             DoctorId = noteInput.Practitioner!,
             CreatedDate = noteInput.CreatedDate,
             LastUpdatedDate = noteInput.CreatedDate,
-            Triggers = noteInput.Triggers.Select(t => new Triggers
-            {
-                TriggerId = t.TriggerId,
-                TriggerName = t.TriggerName
-            }).Cast<ITriggers>().ToList(),
+            Triggers = triggers.Cast<ITriggers>().ToList(),
             RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count).ToString()
         };
         await _notes.InsertOneAsync(newNote);
@@ -60,6 +60,8 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
     public async Task UpdateNoteAsync(NotesUpdateInput noteInput, int noteId)
     {
         var patient = await _dbContext.FindAsync<Patient>(noteInput.PatientId);
+
+        var triggers = await _triggers.Find(trigger => noteInput.Triggers.Contains(trigger.TriggerId)).ToListAsync();
 
         if (patient == null)
             throw new Exception("Patient not found");
@@ -71,11 +73,7 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
             Comment = noteInput.Comment ?? "",
             LastUpdatedDate = DateTime.Now,
             DoctorId = noteInput.Practitioner,
-            Triggers = noteInput.Triggers.Select(t => new Triggers
-            {
-                TriggerId = t.TriggerId,
-                TriggerName = t.TriggerName
-            }).Cast<ITriggers>().ToList(),
+            Triggers = triggers.Cast<ITriggers>().ToList(),
             RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, noteInput.Triggers.Count).ToString()
         };
 

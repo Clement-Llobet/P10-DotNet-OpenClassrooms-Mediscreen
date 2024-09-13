@@ -9,7 +9,7 @@ public record NotesUpdateInput
     public required int PatientId { get; set; }
     public DateTime NoteDate { get; set; }
     public string? Comment { get; set; }
-    public List<TriggerDto> Triggers { get; set; } = new();
+    public List<int> Triggers { get; set; } = new();
     public required DateTime CurrentDateTime { get; set; }
     public required string Practitioner { get; set; } 
 }
