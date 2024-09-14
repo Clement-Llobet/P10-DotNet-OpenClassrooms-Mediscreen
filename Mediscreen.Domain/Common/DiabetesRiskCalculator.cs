@@ -40,16 +40,19 @@ public static class DiabetesRiskCalculator
 
         RiskLevel CheckRiskLevelOverAgeThirty(int triggersListCount)
         {
-            if (triggersListCount == 0)
-                return RiskLevel.None;
-            if (triggersListCount == 2)
-                return RiskLevel.Borderline;
-            if (triggersListCount >= 6 && triggersListCount <= 7)
-                return RiskLevel.InDanger;
-            if (triggersListCount >= 8)
-                return RiskLevel.EarlyOnset;
-
-            return RiskLevel.None;
+            switch (triggersListCount)
+            {
+                case 0:
+                    return RiskLevel.None;
+                case >= 2 and <= 5:
+                    return RiskLevel.Borderline;
+                case >= 6 and <= 7:
+                    return RiskLevel.InDanger;
+                case >= 8:
+                    return RiskLevel.EarlyOnset;
+                default:
+                    return RiskLevel.None;
+            }
         }
     }
 }

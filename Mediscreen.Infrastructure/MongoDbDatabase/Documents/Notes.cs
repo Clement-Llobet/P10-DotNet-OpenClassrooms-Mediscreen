@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 
+[BsonIgnoreExtraElements]
 public class Notes : INotes
 {
     [BsonId]
@@ -14,14 +15,11 @@ public class Notes : INotes
     [BsonElement("comment")]
     public string Comment { get; set; } = string.Empty;
     [BsonElement("triggersList")]
-    [BsonIgnoreIfNull]
-    public List<ITriggers> Triggers { get; set; } = [];
+    public List<int> TriggersIds { get; set; } = new List<int>();
     [BsonElement("doctorId")]
     public string DoctorId { get; set; } = string.Empty;
     [BsonElement("createdDate")]
     public DateTime CreatedDate { get; set; }
     [BsonElement("updatedDate")]
     public DateTime LastUpdatedDate { get; set; }
-    [BsonElement("riskLevel")]
-    public string RiskLevel { get; set; } = string.Empty;
 }

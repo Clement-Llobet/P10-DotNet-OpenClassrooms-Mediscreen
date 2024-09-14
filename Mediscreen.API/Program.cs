@@ -1,9 +1,13 @@
+using Bogus;
 using Mediscreen.API.Endpoints;
+using Mediscreen.Domain.Triggers.Contracts;
 using Mediscreen.Infrastructure.Config;
+using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +31,12 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mediscreen", Version = "v1" });
     c.EnableAnnotations();
+});
+
+BsonClassMap.RegisterClassMap<Triggers>(classMap =>
+{
+    classMap.AutoMap();
+    classMap.SetIgnoreExtraElements(true);
 });
 
 var app = builder.Build();

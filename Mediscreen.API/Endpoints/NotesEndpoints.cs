@@ -3,6 +3,7 @@ using Mediscreen.API.Routes;
 using Mediscreen.Domain.Note;
 using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Patient.Contracts;
 using Mediscreen.Domain.Triggers.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
