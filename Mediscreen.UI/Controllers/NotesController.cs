@@ -77,12 +77,18 @@ public class NotesController : Controller
     // GET: NotesController/Edit/5
     public async Task<ActionResult> NoteDetailsEdit(int id)
     {
+        var triggersList = await _triggersService.GetAllTriggers();
         var note = await _noteService.GetPatientNoteById(id);
 
         if (note == null)
-        {
             return NotFound();
+
+        foreach (var trigger in triggersList)
+        {
+            trigger.IsSelected = note.Triggers.Any(x => x.TriggerId == trigger.TriggerId);
         }
+
+        note.Triggers = triggersList.ToList();
 
         return View(note);
     }
