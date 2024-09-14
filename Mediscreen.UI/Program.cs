@@ -82,12 +82,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseCors(policy =>
-//{
-//    policy.AllowAnyOrigin();
-//    policy.AllowAnyHeader();
-//    policy.AllowAnyMethod();
-//});
+app.UseCors(policy =>
+{
+    policy.AllowAnyOrigin();
+    policy.AllowAnyHeader();
+    policy.AllowAnyMethod();
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

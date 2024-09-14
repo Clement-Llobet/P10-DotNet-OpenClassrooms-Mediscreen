@@ -11,11 +11,10 @@ public class Notes : INotes
     public int NoteId { get; set; }
     [BsonElement("patientId")]
     public int PatientId { get; set; }
-    [BsonElement("noteDate")]
-    public DateTime NoteDate { get; set; }
-    [BsonElement("note")]
+    [BsonElement("comment")]
     public string Comment { get; set; } = string.Empty;
     [BsonElement("triggersList")]
+    [BsonIgnoreIfNull]
     public List<ITriggers> Triggers { get; set; } = [];
     [BsonElement("doctorId")]
     public string DoctorId { get; set; } = string.Empty;

@@ -17,10 +17,21 @@
             <input type="hidden" name="Practitioner" placeholder="Practitioner" />
             <p>
                 Does the patient has any of the following triggers?<br/>
-                @foreach (var trigger in Model.Triggers)
+                @if (Model.Triggers != null && Model.Triggers.Any())
                 {
-                    <input type="checkbox" name="Triggers" value="@trigger.TriggerId" /><label for="@trigger.TriggerName">@trigger.TriggerName</label><br/>
+                    @foreach (var trigger in Model.Triggers)
+                    {
+                        <input type="checkbox" name="Triggers" value="@trigger.TriggerId" />
+
+                        <label for="@trigger.TriggerName">@trigger.TriggerName</label>
+
+                        <br />
+                    }
                 }
+                else {
+                    <p>No triggers found</p>
+                }
+                
             </p>
 
             <button type=submit>Submit</button>
