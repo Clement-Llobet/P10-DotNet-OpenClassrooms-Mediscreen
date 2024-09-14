@@ -8,6 +8,6 @@ public interface INotesRepository : IQueryable<INotes>
 {
     Task CreateNoteAsync(NotesCreateInput notesInput);
     Task UpdateNoteAsync(NotesUpdateInput notesInput, int noteId);
-    Task<(IPatient, IEnumerable<INotes>, IEnumerable<ITriggers>)> GetNotesAsync(int patientId);
+    Task<List<NotesOutput>> GetAllNotesAsync(int patientId);
     Task<(IPatient, INotes, IEnumerable<ITriggers>)> GetNoteAsync(int patientId);
 }

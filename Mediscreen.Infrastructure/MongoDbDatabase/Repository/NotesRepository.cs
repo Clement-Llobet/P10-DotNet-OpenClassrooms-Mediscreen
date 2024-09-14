@@ -26,13 +26,19 @@ public class NotesRepository : QueryableRepositoryBase<INotes>, INotesRepository
         _dbContext = mediscreenSqlServerContext;
     }
 
-    public async Task<(IPatient, IEnumerable<INotes>, IEnumerable<ITriggers>)> GetNotesAsync(int patientId)
+    public async Task<List<NotesOutput>> GetAllNotesAsync(int patientId)
     {
         var patient = await _dbContext.FindAsync<Patient>(patientId) ?? throw new Exception("Patient not found");
         var notes = await _notes.Find(note => note.PatientId == patientId).ToListAsync();
-        var triggers = await _triggers.Find(trigger => notes.SelectMany(note => note.TriggersIds).Contains(trigger.TriggerId)).ToListAsync();
 
-        return (patient, notes, triggers);
+        List<NotesOutput> notesOutput = new();
+        foreach (var note in notes)
+        {
+            var triggers = await _triggers.Find(trigger => note.TriggersIds.Contains(trigger.TriggerId)).ToListAsync();
+            notesOutput.Add(NotesOutput.Render(patient, note, triggers.Select(trigger => (ITriggers)trigger).ToList()));
+        }
+
+        return notesOutput;
     }
 
     public async Task<(IPatient, INotes, IEnumerable<ITriggers>)> GetNoteAsync(int noteId)

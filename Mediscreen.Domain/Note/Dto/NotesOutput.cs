@@ -22,7 +22,7 @@ public record NotesOutput
             NoteId = notes.NoteId,
             PatientId = notes.PatientId,
             Comment = notes.Comment,
-            Triggers = triggers,
+            Triggers = triggers.Where(trigger => notes.TriggersIds.Contains(trigger.TriggerId)).ToList(),
             LastUpdatedDate = notes.LastUpdatedDate,
             Practitioner = notes.DoctorId,
             RiskLevel = DiabetesRiskCalculator.CalculateRiskLevel(patient, triggers.Count).ToString()
