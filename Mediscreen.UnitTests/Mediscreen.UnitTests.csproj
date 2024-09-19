@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Triggers\" />
-    <Folder Include="Notes\" />
   </ItemGroup>
 
 </Project>

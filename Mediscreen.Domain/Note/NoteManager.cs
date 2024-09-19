@@ -9,7 +9,9 @@ public class NoteManager
     {
         var notes = await noteRepository.GetNotesAsync(patientId);
 
-        return notes.Select(NotesOutput.Render);
+        var returnValue = notes.Select(NotesOutput.Render);
+
+        return returnValue;
     }
 
     public static async Task<NotesOutput> GetNoteAsync(INotesRepository noteRepository, int noteId)
