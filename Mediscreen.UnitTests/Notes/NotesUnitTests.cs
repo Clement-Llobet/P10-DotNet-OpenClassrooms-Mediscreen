@@ -14,26 +14,26 @@ namespace Mediscreen.UnitTests
             // Arrange
             int patientId = 1;
 
-            //var noteOutput1 = new NotesOutput { NoteId = 1, PatientId = patientId, Comment = "Note 1" };
-            //var noteOutput2 = new NotesOutput { NoteId = 2, PatientId = patientId, Comment = "Note 2" };
-            //var noteOutput3 = new NotesOutput { NoteId = 3, PatientId = patientId, Comment = "Note 3" };
-
             var note1 = new Mock<INotes>();
             note1.Setup(x => x.NoteId).Returns(1);
             note1.Setup(x => x.PatientId).Returns(patientId);
             note1.Setup(x => x.Comment).Returns("Note 1");
-            note1.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
+            //note1.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
             note1.Setup(x => x.DoctorId).Returns("Doctor Who");
 
             var note2 = new Mock<INotes>();
             note2.Setup(x => x.NoteId).Returns(2);
             note2.Setup(x => x.PatientId).Returns(patientId);
             note2.Setup(x => x.Comment).Returns("Note 2");
+            //note2.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
+            note2.Setup(x => x.DoctorId).Returns("Doctor Who");
 
             var note3 = new Mock<INotes>();
             note3.Setup(x => x.NoteId).Returns(3);
             note3.Setup(x => x.PatientId).Returns(patientId);
             note3.Setup(x => x.Comment).Returns("Note 3");
+            //note3.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
+            note3.Setup(x => x.DoctorId).Returns("Doctor Who");
 
             var notesList = new List<INotes> { note1.Object, note2.Object, note3.Object };
 
