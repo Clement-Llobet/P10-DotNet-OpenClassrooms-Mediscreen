@@ -66,7 +66,7 @@ public class NotesController : Controller
 
             var noteCreated = await _noteService.CreateNote(notesViewModel);
 
-            return RedirectToAction("ValidationCreation");
+            return RedirectToAction(nameof(ValidationCreation));
         }
         catch
         {
@@ -101,7 +101,7 @@ public class NotesController : Controller
         try
         {
             var noteUpdated = await _noteService.UpdateNote(notesViewModel);
-            return RedirectToAction(nameof(NoteDetails), new { Id = notesViewModel.NoteId });
+            return RedirectToAction(nameof(ValidationUpdate));
         }
         catch
         {
@@ -110,6 +110,11 @@ public class NotesController : Controller
     }
 
     public ActionResult ValidationCreation()
+    {
+        return View();
+    }
+
+    public ActionResult ValidationUpdate()
     {
         return View();
     }
