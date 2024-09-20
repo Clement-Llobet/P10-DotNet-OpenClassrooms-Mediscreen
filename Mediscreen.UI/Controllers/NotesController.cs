@@ -1,5 +1,6 @@
 ﻿using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Mediscreen.UI.Controllers.Services.NotesService;
+using Mediscreen.UI.Controllers.Services.TriggersService;
 using Mediscreen.UI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ namespace Mediscreen.UI.Controllers;
 public class NotesController : Controller
 {
     private readonly INotesService _noteService;
+    private readonly ITriggersService _triggersService;
     private readonly UserManager<User> _userManager;
 
-    public NotesController(INotesService noteService, UserManager<User> userManager)
+    public NotesController(INotesService noteService, ITriggersService triggersService, UserManager<User> userManager)
     {
         _noteService = noteService;
+        _triggersService = triggersService;
         _userManager = userManager;
     }
 
@@ -31,11 +34,14 @@ public class NotesController : Controller
     }
 
     // GET: NotesController/Create
-    public ActionResult NoteDetailsCreate(int id)
+    public async Task<ActionResult> NoteDetailsCreate(int id)
     {
-        NotesViewModel noteViewModel = new()
+        var triggersList = await _triggersService.GetAllTriggers();
+
+        GetNotesViewModel noteViewModel = new()
         {
             PatientId = id,
+            Triggers = triggersList.ToList()
         };
 
         return View(noteViewModel);
@@ -60,7 +66,7 @@ public class NotesController : Controller
 
             var noteCreated = await _noteService.CreateNote(notesViewModel);
 
-            return RedirectToAction("ValidationCreation");
+            return RedirectToAction(nameof(ValidationCreation));
         }
         catch
         {
@@ -71,12 +77,18 @@ public class NotesController : Controller
     // GET: NotesController/Edit/5
     public async Task<ActionResult> NoteDetailsEdit(int id)
     {
+        var triggersList = await _triggersService.GetAllTriggers();
         var note = await _noteService.GetPatientNoteById(id);
 
         if (note == null)
-        {
             return NotFound();
+
+        foreach (var trigger in triggersList)
+        {
+            trigger.IsSelected = note.Triggers.Any(x => x.TriggerId == trigger.TriggerId);
         }
+
+        note.Triggers = triggersList.ToList();
 
         return View(note);
     }
@@ -89,7 +101,7 @@ public class NotesController : Controller
         try
         {
             var noteUpdated = await _noteService.UpdateNote(notesViewModel);
-            return RedirectToAction(nameof(NoteDetails), new { Id = notesViewModel.NoteId });
+            return RedirectToAction(nameof(ValidationUpdate));
         }
         catch
         {
@@ -98,6 +110,11 @@ public class NotesController : Controller
     }
 
     public ActionResult ValidationCreation()
+    {
+        return View();
+    }
+
+    public ActionResult ValidationUpdate()
     {
         return View();
     }

@@ -1,65 +1,58 @@
-﻿using Mediscreen.Domain.Note.Contracts;
-using Mediscreen.Domain.Patient.Contracts;
+﻿using Mediscreen.Domain.Patient.Contracts;
 
 namespace Mediscreen.Domain.Common;
 
 public static class DiabetesRiskCalculator
 {
-    public static RiskLevel CalculateRiskLevel(IPatient patient, List<Triggers> triggersList)
+    public static RiskLevel CalculateRiskLevel(IPatient patient, int triggersListCount)
     {
-        DateTime today = DateTime.Today;
-        int patientAge = today.Year - patient.BirthDate.Year;
-
-        if (patient.BirthDate > today.AddYears(-patientAge))
-            patientAge--;
-
-        if (patient.BirthDate > today)
-            throw new ArgumentException("Birth date cannot be in the future");
-
-        int triggersCount = triggersList.Count;
+        int patientAge = AgeCalculation.CalculateAge(patient.BirthDate);
 
         switch (patientAge)
         {
             case < 30:
-                return CheckRiskLevelUnderAgeThirty(triggersCount);
+                return CheckRiskLevelUnderAgeThirty(triggersListCount);
             case >= 30:
-                return CheckRiskLevelOverThirty(triggersCount);
+                return CheckRiskLevelOverAgeThirty(triggersListCount);
             default:
         }
 
-        RiskLevel CheckRiskLevelUnderAgeThirty(int triggersCount)
+        RiskLevel CheckRiskLevelUnderAgeThirty(int triggersListCount)
         {
             if (patient.Gender == "M")
             {
-                if (triggersCount == 0)
+                if (triggersListCount == 0)
                     return RiskLevel.None;
-                if (triggersCount >= 3 && triggersCount <= 4)
+                if (triggersListCount >= 3 && triggersListCount <= 4)
                     return RiskLevel.InDanger;
-                if (triggersCount >= 5)
+                if (triggersListCount >= 5)
                     return RiskLevel.EarlyOnset;
             }
             else
             {
-                if (triggersCount >= 4 && triggersCount <= 6)
+                if (triggersListCount >= 4 && triggersListCount <= 6)
                     return RiskLevel.InDanger;
-                if (triggersCount >= 7)
+                if (triggersListCount >= 7)
                     return RiskLevel.EarlyOnset;
             }
             return RiskLevel.None;
         }
 
-        RiskLevel CheckRiskLevelOverThirty(int triggersCount)
+        RiskLevel CheckRiskLevelOverAgeThirty(int triggersListCount)
         {
-            if (triggersCount == 0)
-                return RiskLevel.None;
-            if (triggersCount == 2)
-                return RiskLevel.Borderline;
-            if (triggersCount >= 6 && triggersCount <= 7)
-                return RiskLevel.InDanger;
-            if (triggersCount >= 8)
-                return RiskLevel.EarlyOnset;
-
-            return RiskLevel.None;
+            switch (triggersListCount)
+            {
+                case 0:
+                    return RiskLevel.None;
+                case >= 2 and <= 5:
+                    return RiskLevel.Borderline;
+                case >= 6 and <= 7:
+                    return RiskLevel.InDanger;
+                case >= 8:
+                    return RiskLevel.EarlyOnset;
+                default:
+                    return RiskLevel.None;
+            }
         }
     }
 }

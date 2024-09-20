@@ -1,4 +1,4 @@
-﻿@model Mediscreen.UI.Models.NotesViewModel
+﻿@model Mediscreen.UI.Models.GetNotesViewModel
 
 @{
     ViewData["Title"] = "Edit Note";
@@ -18,18 +18,14 @@
             <input type="hidden" name="Practitioner" value="@Model.Practitioner" />
 
             <p>
-                Is patient has any of the following triggers?<br />
-                <input type="checkbox" name="Triggers" value="HemoglobinA1C" /><label for="HemoglobinA1C">Hemoglobin A1C</label><br />
-                <input type="checkbox" name="Triggers" value="Microalbumin" /><label for="Microalbumin">Microalbumin</label><br />
-                <input type="checkbox" name="Triggers" value="BodyHeight" /><label for="BodyWeight">Body Height</label><br />
-                <input type="checkbox" name="Triggers" value="BodyWeight" /><label for="BodyWeight">Body Weight</label><br />
-                <input type="checkbox" name="Triggers" value="Smoker" /><label for="Smoker">Smoker</label><br />
-                <input type="checkbox" name="Triggers" value="Abnormal" /><label for="Abnormal">Abnormal</label><br />
-                <input type="checkbox" name="Triggers" value="Cholesterol" /><label for="Cholesterol">Cholesterol</label><br />
-                <input type="checkbox" name="Triggers" value="Dizziness" /><label for="Dizziness">Dizziness</label><br />
-                <input type="checkbox" name="Triggers" value="Relapse" /><label for="Relapse">Relapse</label><br />
-                <input type="checkbox" name="Triggers" value="Reaction" /><label for="Reaction">Reaction</label><br />
-                <input type="checkbox" name="Triggers" value="Antibodies" /><label for="Antibodies">Antibodies</label>
+                Does the patient has any of the following triggers?<br />
+                @foreach (var trigger in Model.Triggers)
+                {
+                    <input type="checkbox" name="Triggers" value="@trigger.TriggerId" />
+                    <label for="@trigger.TriggerName">@trigger.TriggerName</label>
+
+                    <br />
+                }
             </p>
 
             <button>Submit</button>

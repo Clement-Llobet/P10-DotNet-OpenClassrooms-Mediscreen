@@ -8,21 +8,23 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" href="~/Patient/Index">Patient Follow-up</a>
-    </li>
-    <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+            <button id="logout" type="submit" class="nav-link btn btn-link border-0" style="color: white">
+                <i class="fa-solid fa-right-from-bracket" style="transform: rotate(180deg); height: 20px;"></i>
+            </button>
         </form>
     </li>
+    <li class="nav-item">
+        <a id="manage" class="nav-link" style="color: wh 475 8ite" href="~/Patient/Index">Patient Follow-up</a>
+    </li> 
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <li class="nav-item" >
+        <a class="nav-link" style="color: white" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <li class="nav-item" >
+        <a class="nav-link" style="color: white" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
 </ul>

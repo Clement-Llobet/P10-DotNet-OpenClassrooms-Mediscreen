@@ -42,7 +42,7 @@
                         <td>
                             @foreach (var trigger in note.Triggers)
                             {
-                                <p>@trigger</p>
+                                <p>@trigger.TriggerName</p>
                             }
                         </td>
                         <td>@Html.DisplayFor(noteItem => note.RiskLevel)</td>

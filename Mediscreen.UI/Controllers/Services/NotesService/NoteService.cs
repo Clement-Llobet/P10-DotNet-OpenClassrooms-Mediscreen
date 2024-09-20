@@ -1,4 +1,6 @@
 ﻿using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Triggers.Dto;
+using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.UI.Models;
 
 namespace Mediscreen.UI.Controllers.Services.NotesService;
@@ -37,26 +39,26 @@ public class NoteService : INotesService
         return response;
     }
 
-    public async Task<IEnumerable<NotesViewModel>> GetAllPatientNotes(int patientId)
+    public async Task<IEnumerable<GetNotesViewModel>> GetAllPatientNotes(int patientId)
     {
         var response = await _client.GetAsync($"{_baseUrl}/api/notes/patient/{patientId}");
         response.EnsureSuccessStatusCode();
 
-        var content = await response.Content.ReadFromJsonAsync<IEnumerable<NotesViewModel>>();
+        var content = await response.Content.ReadFromJsonAsync<IEnumerable<GetNotesViewModel>>();
         return content ?? [];
     }
 
-    public async Task<NotesViewModel> GetPatientNoteById(int id) 
+    public async Task<GetNotesViewModel> GetPatientNoteById(int id) 
     {         
         var response = await _client.GetAsync($"{_baseUrl}/api/notes/{id}");
         response.EnsureSuccessStatusCode();
 
-        var content = await response.Content.ReadFromJsonAsync<NotesViewModel>();
+        var content = await response.Content.ReadFromJsonAsync<GetNotesViewModel>();
 
         return content ?? throw new InvalidOperationException("Note not found");
     }
 
-    public async Task<NotesViewModel> UpdateNote(NotesViewModel note)
+    public async Task<HttpResponseMessage> UpdateNote(NotesViewModel note)
     {
         var noteInputUpdate = new NotesUpdateInput
         {
@@ -71,6 +73,6 @@ public class NoteService : INotesService
         var response = await _client.PutAsJsonAsync($"{_baseUrl}/api/notes/{note.NoteId}", noteInputUpdate);
         response.EnsureSuccessStatusCode();
 
-        return note;
+        return response;
     }
 }
