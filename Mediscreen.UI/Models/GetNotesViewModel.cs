@@ -1,11 +1,11 @@
 ﻿namespace Mediscreen.UI.Models;
 
-public class NotesViewModel
+public class GetNotesViewModel
 {
     public int NoteId { get; set; }
     public required int PatientId { get; set; }
     public string Comment { get; set; } = string.Empty;
-    public List<int> Triggers { get; set; } = [];
+    public List<TriggerViewModel> Triggers { get; set; } = [];
     public string RiskLevel { get; set; } = string.Empty;
     public DateTime CreatedDate { get; set; }
     public DateTime LastUpdatedDate { get; set; }

@@ -7,46 +7,86 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Mediscreen.UI.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/627b1d90cf.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <div style="padding: 0.5em;">
+                <h1 class="mx-auto text-center w-100">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 1em; color: black; text-decoration: none; font-weight: 900;">
+                        <img src="~/assets/mediscreen-logo.png" alt="Mediscreen" style="height: 2em; margin-left: 0.5em; margin-right: 0.5em;" />
+                        Mediscreen
+                    </a>
+                </h1>
+            </div>
+            <div style="margin: 1%;">
+                <form 
+                    method="post" 
+                    class="d-flex flex-row justify-content-between align-items-center"
+                    style="margin: 1%;"
+                >
+                    <input type="search" name="search" style="height: 2.5em; border-color: #008499; border-radius: 0.5em 0.5em 0.5em 0.5em" />
+                    <div class="d-flex justify-content-center align-items-center"
+                        style="
+                            margin-left: 0.5em;
+                            padding: 0.5em;
+                            background-color: #008499; 
+                            height: 2.5em; 
+                            width: 2.5em; 
+                            font-weight: 500; 
+                            border-radius: 20%; 
+                            color: white;
+                        ">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </form>
+                <p style="color: #008499; font-weight: 500;">
+                    Questions? <a href="mailto:contact@mediscreen.com" style="text-decoration: underline; color: #008499!important;">Contact us!</a>
+                </p>
+            </div>
+        </div>
+        <nav 
+            class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" 
+            style="background-color: #008499; font-weight: 500;"
+            >
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Mediscreen</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" style="color: white;" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark">About</a>
+                            <a href="" class="nav-link" style="color: white;">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark">Services</a>
+                            <a href="" class="nav-link" style="color: white;">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark">Ressources</a>
+                            <a href="" class="nav-link" style="color: white;">Ressources</a>
                         </li>
-                        <partial name="_LoginPartial" />
-
+                        <li class="nav-item">
+                            <a href="" class="nav-link" style="color: white;">News Blog</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div>
+        <main role="main" class="d-flex flex-row justify-content-between align-items-center">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Mediscreen.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted" style="background-color: #008499">
+        <div class="container" style="color: white;">
+            &copy; 2024 - Mediscreen.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy" style="color: white; text-decoration: underline;">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

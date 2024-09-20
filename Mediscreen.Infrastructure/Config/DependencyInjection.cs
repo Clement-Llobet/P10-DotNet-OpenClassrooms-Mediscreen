@@ -1,5 +1,6 @@
 ﻿using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Patient.Contracts;
+using Mediscreen.Domain.Triggers.Contracts;
 using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.Infrastructure.MongoDbDatabase.Repository;
 using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
@@ -40,10 +41,18 @@ public static class DependencyInjection
             var collection = database.GetCollection<Notes>("Notes");
             return collection.AsQueryable().OfType<INotes>();
         });
+        services.AddScoped(sp =>
+        {
+            var client = sp.GetRequiredService<IMongoClient>();
+            var database = client.GetDatabase("Mediscreen");
+            var collection = database.GetCollection<Triggers>("Triggers");
+            return collection.AsQueryable().OfType<ITriggers>();
+        });
 
         services.AddSingleton(new MongoClient(mongoConnectionString));
 
         services.AddTransient<INotesRepository, NotesRepository>();
+        services.AddTransient<ITriggersRepository, TriggersRepository>();
 
         return services;
     }

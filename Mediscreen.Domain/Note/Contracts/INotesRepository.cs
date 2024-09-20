@@ -1,4 +1,6 @@
 ﻿using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Patient.Contracts;
+using Mediscreen.Domain.Triggers.Contracts;
 
 namespace Mediscreen.Domain.Note.Contracts;
 
@@ -6,6 +8,6 @@ public interface INotesRepository : IQueryable<INotes>
 {
     Task CreateNoteAsync(NotesCreateInput notesInput);
     Task UpdateNoteAsync(NotesUpdateInput notesInput, int noteId);
-    Task<IEnumerable<INotes>> GetNotesAsync(int patientId);
-    Task<INotes> GetNoteAsync(int patientId);
+    Task<List<NotesOutput>> GetAllNotesAsync(int patientId);
+    Task<(IPatient, INotes, IEnumerable<ITriggers>)> GetNoteAsync(int patientId);
 }

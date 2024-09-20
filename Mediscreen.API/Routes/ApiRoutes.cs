@@ -31,4 +31,12 @@ public static class ApiRoutes
         public const string UpdateNote = Base + "/{noteId}";
         public static readonly SwaggerOperationAttribute UpdateNoteMetadata = new("Update a note", "Update a note");
     }
+
+    public static class Triggers
+    {
+        private const string Base = "/api/triggers";
+        public const string Tag = "Triggers";
+        public const string ListTriggers = Base;
+        public static readonly SwaggerOperationAttribute ListTriggersMetadata = new("Get all triggers", "Retrieve all triggers from the MongoDB database");
+    }
 }

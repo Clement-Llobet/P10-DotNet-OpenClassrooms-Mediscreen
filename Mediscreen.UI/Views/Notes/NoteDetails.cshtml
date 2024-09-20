@@ -1,4 +1,4 @@
-﻿@model Mediscreen.UI.Models.NotesViewModel
+﻿@model Mediscreen.UI.Models.GetNotesViewModel
 
 @{
     ViewData["Title"] = "Note";
@@ -19,7 +19,7 @@
         <ul>
             @foreach (var trigger in Model.Triggers)
             {
-                <li>@trigger</li>
+                <li>@trigger.TriggerName</li>
             }
         </ul>
     </div>
