@@ -50,22 +50,13 @@ namespace Mediscreen.UnitTests
                 .ReturnsAsync((mockPatient.Object, mockNote.Object, mockTriggers));
 
             // Act
-            var result = await GetNoteAsync(mockNotesRepository.Object, noteId);
+            var result = await NoteManager.GetNoteAsync(mockNotesRepository.Object, noteId);
 
             // Assert
             Assert.NotNull(result);
             Assert.IsType<NotesOutput>(result);
 
             mockNotesRepository.Verify(repo => repo.GetNoteAsync(noteId), Times.Once);
-        }
-
-        private static async Task<NotesOutput> GetNoteAsync(INotesRepository noteRepository, int noteId)
-        {
-            var notesRepositoryDatas = await noteRepository.GetNoteAsync(noteId);
-            var patient = notesRepositoryDatas.Item1;
-            var note = notesRepositoryDatas.Item2;
-            var triggers = notesRepositoryDatas.Item3.ToList();
-            return NotesOutput.Render(patient!, note, triggers);
         }
 
         [Fact]
