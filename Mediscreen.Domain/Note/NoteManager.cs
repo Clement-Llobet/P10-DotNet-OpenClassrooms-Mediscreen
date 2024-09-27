@@ -10,11 +10,6 @@ public class NoteManager
     public static async Task<List<NotesOutput>> ListNotesFromPatientAsync(INotesRepository noteRepository, int patientId)
     {
         return await noteRepository.GetAllNotesAsync(patientId);
-        //var patient = notesRepositoryDatas.Item1;
-        //var notes = notesRepositoryDatas.Item2;
-        //var triggers = notesRepositoryDatas.Item3.ToList();
-
-        //return notes.Select(note => NotesOutput.Render(patient, note, triggers));
     }
 
     public static async Task<NotesOutput> GetNoteAsync(INotesRepository noteRepository, int noteId)
