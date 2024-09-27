@@ -1,14 +1,11 @@
-﻿using Mediscreen.Domain.Common;
-using Mediscreen.Domain.Note.Contracts;
+﻿using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
 using Mediscreen.Domain.Patient.Contracts;
 using Mediscreen.Domain.Triggers.Contracts;
-using Mediscreen.Domain.Triggers.Dto;
 using Mediscreen.Infrastructure.MongoDbDatabase.Documents;
 using Mediscreen.Infrastructure.SqlServerDatabase.Contexts;
 using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using MongoDB.Driver;
-using static Azure.Core.HttpHeader;
 
 namespace Mediscreen.Infrastructure.MongoDbDatabase.Repository;
 

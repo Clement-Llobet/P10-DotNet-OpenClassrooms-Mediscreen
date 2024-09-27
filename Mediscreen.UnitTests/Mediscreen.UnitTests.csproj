@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mediscreen.Domain\Mediscreen.Domain.csproj" />
+    <ProjectReference Include="..\Mediscreen.Infrastructure\Mediscreen.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

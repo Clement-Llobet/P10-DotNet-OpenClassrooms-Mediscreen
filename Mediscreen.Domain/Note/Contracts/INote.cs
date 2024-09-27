@@ -1,6 +1,4 @@
-﻿using Mediscreen.Domain.Triggers.Contracts;
-
-namespace Mediscreen.Domain.Note.Contracts;
+﻿namespace Mediscreen.Domain.Note.Contracts;
 
 public interface INotes
 {

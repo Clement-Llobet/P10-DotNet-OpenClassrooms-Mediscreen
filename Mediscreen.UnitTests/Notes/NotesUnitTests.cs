@@ -1,6 +1,10 @@
 ﻿using Mediscreen.Domain.Note;
 using Mediscreen.Domain.Note.Contracts;
 using Mediscreen.Domain.Note.Dto;
+using Mediscreen.Domain.Patient.Contracts;
+using Mediscreen.Domain.Triggers.Contracts;
+using Mediscreen.Domain.Triggers.Dto;
+using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Moq;
 using Xunit;
 
@@ -9,78 +13,79 @@ namespace Mediscreen.UnitTests
     public class NotesUnitTests
     {
         [Fact]
-        public async Task ListNotesFromPatientAsync_ReturnsListOfNotes()
+        public async Task ListNotesFromPatientAsync_ShouldReturnListOfNotes()
         {
             // Arrange
             int patientId = 1;
-
-            var note1 = new Mock<INotes>();
-            note1.Setup(x => x.NoteId).Returns(1);
-            note1.Setup(x => x.PatientId).Returns(patientId);
-            note1.Setup(x => x.Comment).Returns("Note 1");
-            //note1.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
-            note1.Setup(x => x.DoctorId).Returns("Doctor Who");
-
-            var note2 = new Mock<INotes>();
-            note2.Setup(x => x.NoteId).Returns(2);
-            note2.Setup(x => x.PatientId).Returns(patientId);
-            note2.Setup(x => x.Comment).Returns("Note 2");
-            //note2.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
-            note2.Setup(x => x.DoctorId).Returns("Doctor Who");
-
-            var note3 = new Mock<INotes>();
-            note3.Setup(x => x.NoteId).Returns(3);
-            note3.Setup(x => x.PatientId).Returns(patientId);
-            note3.Setup(x => x.Comment).Returns("Note 3");
-            //note3.Setup(x => x.Triggers).Returns(new List<ITriggers> { });
-            note3.Setup(x => x.DoctorId).Returns("Doctor Who");
-
-            var notesList = new List<INotes> { note1.Object, note2.Object, note3.Object };
+            var expectedNotes = new List<NotesOutput>
+                {
+                    new() { NoteId = 1, PatientId = 1, Comment = "Note 1" },
+                    new() { NoteId = 2, PatientId = 1, Comment = "Note 2" },
+                    new() { NoteId = 3, PatientId = 1, Comment = "Note 3" }
+                };
 
             var noteRepositoryMock = new Mock<INotesRepository>();
-            noteRepositoryMock.Setup(repo => repo.GetNotesAsync(patientId)).ReturnsAsync(notesList);
+            noteRepositoryMock.Setup(repo => repo.GetAllNotesAsync(patientId))
+                .ReturnsAsync(expectedNotes);
 
             // Act
             var result = await NoteManager.ListNotesFromPatientAsync(noteRepositoryMock.Object, patientId);
 
             // Assert
-            Assert.Equal(notesList.Count, result.Count());
-            Assert.Equal(notesList.Select(n => n.Comment), result.Select(n => n.Comment));
+            Assert.Equal(expectedNotes, result);
         }
 
         [Fact]
-        public async Task GetNoteAsync_ReturnsNote()
+        public async Task GetNoteAsync_ShouldReturnCorrectData()
         {
             // Arrange
             int noteId = 1;
-            var expectedNote = new NotesOutput { NoteId = noteId, PatientId = 1, Comment = "Note 1" };
+            var mockNotesRepository = new Mock<INotesRepository>();
 
-            var noteRepositoryMock = new Mock<INotesRepository>();
+            var mockPatient = new Mock<IPatient>();
+            var mockNote = new Mock<INotes>();
+            var mockTriggers = new List<ITriggers> { new Mock<ITriggers>().Object, new Mock<ITriggers>().Object };
+
+            mockNotesRepository.Setup(repo => repo.GetNoteAsync(noteId))
+                .ReturnsAsync((mockPatient.Object, mockNote.Object, mockTriggers));
 
             // Act
-            var result = await NoteManager.GetNoteAsync(noteRepositoryMock.Object, noteId);
+            var result = await GetNoteAsync(mockNotesRepository.Object, noteId);
 
             // Assert
-            Assert.Equal(expectedNote.Comment, result.Comment);
+            Assert.NotNull(result);
+            Assert.IsType<NotesOutput>(result);
+
+            mockNotesRepository.Verify(repo => repo.GetNoteAsync(noteId), Times.Once);
+        }
+
+        private static async Task<NotesOutput> GetNoteAsync(INotesRepository noteRepository, int noteId)
+        {
+            var notesRepositoryDatas = await noteRepository.GetNoteAsync(noteId);
+            var patient = notesRepositoryDatas.Item1;
+            var note = notesRepositoryDatas.Item2;
+            var triggers = notesRepositoryDatas.Item3.ToList();
+            return NotesOutput.Render(patient!, note, triggers);
         }
 
         [Fact]
         public async Task CreateNoteAsync_CallsCreateNoteAsync()
         {
             // Arrange
-            var note = new NotesCreateInput 
+            var note = new NotesCreateInput
             {
                 NoteId = 1,
-                PatientId = 1, 
+                PatientId = 1,
                 Comment = "New Note",
-                Triggers = new List<string> { "Trigger 1", "Trigger 2" },
+                Triggers = new List<int> { 1, 2 },
                 CreatedDate = DateTime.Now
             };
 
             var noteRepositoryMock = new Mock<INotesRepository>();
+            var triggerRepositoryMock = new Mock<ITriggersRepository>();
 
             // Act
-            await NoteManager.CreateNoteAsync(noteRepositoryMock.Object, note);
+            await NoteManager.CreateNoteAsync(noteRepositoryMock.Object, triggerRepositoryMock.Object, note);
 
             // Assert
             noteRepositoryMock.Verify(repo => repo.CreateNoteAsync(note), Times.Once);
@@ -91,19 +96,20 @@ namespace Mediscreen.UnitTests
         {
             // Arrange
             int noteId = 1;
-            var noteInput = new NotesUpdateInput 
+            var noteInput = new NotesUpdateInput
             {
                 PatientId = 1,
                 Comment = "Updated Note",
                 CurrentDateTime = DateTime.Now,
-                Triggers = new List<string> { "Trigger 1", "Trigger 2" },
+                Triggers = new List<int> { 1, 2 },
                 Practitioner = "Doctor Who"
             };
 
             var noteRepositoryMock = new Mock<INotesRepository>();
+            var triggerRepositoryMock = new Mock<ITriggersRepository>();
 
             // Act
-            await NoteManager.UpdateNoteAsync(noteRepositoryMock.Object, noteInput, noteId);
+            await NoteManager.UpdateNoteAsync(noteRepositoryMock.Object, triggerRepositoryMock.Object, noteInput, noteId);
 
             // Assert
             noteRepositoryMock.Verify(repo => repo.UpdateNoteAsync(noteInput, noteId), Times.Once);
