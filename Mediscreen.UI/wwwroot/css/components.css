@@ -1,0 +1,47 @@
+﻿.patient-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.patient-card {
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: solid 1px #0dc5c7;
+    text-decoration: none !important;
+    color: black;
+    text-align: center;
+    margin: 1%;
+}
+
+.patient-card:hover {
+    background-color: #009cb4;
+    border: solid 1px #009cb4;
+    text-decoration: none!important;
+    color: white!important;
+}
+
+.add-new-patient {
+    width: 5rem;
+    height: 3rem;
+    margin: 1rem;
+    font-size: 2.5rem;
+    background-color: darkorange;
+    border: 1px solid darkorange;
+    border-radius: 0.25rem;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.add-new-patient:hover {
+    background-color: white;
+    border: 1px solid darkorange;
+    border-radius: 0.25rem;
+    color: darkorange;
+}
