@@ -5,22 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit @Model.FirstName @Model.LastName</h1>
+<main class="create-or-edit-item">
+    <h2>Edit @Model.FirstName @Model.LastName</h2>
 
-<div class="detail-page">
-    <div class="detail">
-        <h2>Details</h2>
-        <form asp-action="PatientDetailsEdit" asp-controller="Patient" method="post">
-            <input name="_RequestVerificationToken" type="hidden" />
-            <input type="hidden" name="Id" value="@Model.Id" />
-            <input type="text" name="FirstName" value="@Model.FirstName" />
-            <input type="text" name="LastName" value="@Model.LastName" />
-            <input type="text" name="BirthDate" value="@Model.BirthDate" />
-            <input type="text" name="Gender" value="@Model.Gender" />
-            <input type="text" name="HomeAddress" value="@Model.HomeAddress" />
-            <input type="text" name="PhoneNumber" value="@Model.PhoneNumber" />
+    <div class="detail-page">
+        <div class="detail">
+            <h2>Details</h2>
+            <form asp-action="PatientDetailsEdit" asp-controller="Patient" method="post" class="create-or-edit-item">
+                <input class="create-or-edit-inputs" name="_RequestVerificationToken" type="hidden" />
+                <input class="create-or-edit-inputs" type="hidden" name="Id" value="@Model.Id" />
+                <input class="create-or-edit-inputs" type="text" name="FirstName" value="@Model.FirstName" />
+                <input class="create-or-edit-inputs" type="text" name="LastName" value="@Model.LastName" />
+                <input class="create-or-edit-inputs" type="text" name="BirthDate" value="@Model.BirthDate" />
+                <input class="create-or-edit-inputs" type="text" name="Gender" value="@Model.Gender" />
+                <input class="create-or-edit-inputs" type="text" name="HomeAddress" value="@Model.HomeAddress" />
+                <input class="create-or-edit-inputs" type="text" name="PhoneNumber" value="@Model.PhoneNumber" />
 
-            <button>Submit</button>
-        </form>
+                <button class="create-or-edit-buttons">Submit</button>
+            </form>
+        </div>
     </div>
-</div>
+</main>
+

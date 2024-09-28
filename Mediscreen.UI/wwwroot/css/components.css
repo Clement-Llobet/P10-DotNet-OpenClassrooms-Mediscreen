@@ -46,7 +46,7 @@
     color: darkorange;
 }
 
-.patient-detail-main {
+.details-main {
     margin: 1rem;
 }
 
@@ -63,6 +63,7 @@
     justify-content: left;
     align-items: center;
 }
+
 .patient-name {
     font-size: 2rem;
 }
@@ -131,4 +132,40 @@
 .borderline {
     background-color: #ffcc00;
     color: white;
+}
+
+.create-or-edit-item {
+    margin-top: 2%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-or-edit-inputs {
+    max-width: 20rem;
+    min-width: 10rem;
+    height: 3rem;
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+.create-or-edit-buttons {
+    max-width: 20rem;
+    min-width: 10rem;
+    height: 3rem;
+    margin: 0.5rem 0rem 0.5rem 0rem;
+    border: 1px solid #008499;
+    background-color: #008499;
+    border-radius: 1rem 1rem 1rem 1rem;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.create-or-edit-buttons:hover {
+    background-color: #009cb4;
+    border: 1px solid #009cb4;
 }
