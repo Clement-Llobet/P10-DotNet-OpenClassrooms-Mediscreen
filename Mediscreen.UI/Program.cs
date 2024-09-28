@@ -12,7 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("SqlServerConte
 
 builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddHttpClient();
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
