@@ -5,36 +5,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create new note</h1>
+<main class="create-or-edit-item">
+    <h2>Create new note</h2>
 
-<div class="detail-page">
-    <div class="detail">
-        <form asp-action="NoteDetailsCreate" asp-controller="Notes" method="post">
-            <input name="_RequestVerificationToken" type="hidden" />
-            <input type="hidden" name="PatientId" value="@Model.PatientId" />
-            <input type="text" name="Comment" placeholder="Note" />
-            <input type="hidden" name="Date" placeholder="Date" />
-            <input type="hidden" name="Practitioner" placeholder="Practitioner" />
-            <p>
-                Does the patient has any of the following triggers?<br/>
-                @if (Model.Triggers != null && Model.Triggers.Any())
-                {
-                    @foreach (var trigger in Model.Triggers)
+    <div class="detail-page">
+        <div class="detail">
+            <form asp-action="NoteDetailsCreate" asp-controller="Notes" method="post" class="create-or-edit-item">
+                <input name="_RequestVerificationToken" type="hidden" />
+                <input type="hidden" name="PatientId" value="@Model.PatientId" />
+                <input type="text" name="Comment" placeholder="Comment" />
+                <input type="hidden" name="Date" placeholder="Date" />
+                <input type="hidden" name="Practitioner" placeholder="Practitioner" />
+                <div>
+                    <p>Does the patient has any of the following triggers?</p>
+                    @if (Model.Triggers != null && Model.Triggers.Any())
                     {
-                        <input type="checkbox" name="Triggers" value="@trigger.TriggerId" />
+                        @foreach (var trigger in Model.Triggers)
+                        {
+                            <input type="checkbox" name="Triggers" value="@trigger.TriggerId" />
+                            <label for="@trigger.TriggerName">@trigger.TriggerName</label>
 
-                        <label for="@trigger.TriggerName">@trigger.TriggerName</label>
-
-                        <br />
+                            <br />
+                        }
                     }
-                }
-                else {
-                    <p>No triggers found</p>
-                }
-                
-            </p>
+                    else
+                    {
+                        <p>No triggers found</p>
+                    }
+                </div>
 
-            <button type=submit>Submit</button>
-        </form>
+                <button class="create-or-edit-buttons" type=submit>Submit</button>
+            </form>
+        </div>
     </div>
-</div>
+</main>
