@@ -5,55 +5,91 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.FirstName @Model.LastName</h1>
-
-<div class="detail-page">
-    <div class="detail">
-        <h2>Details</h2>
-        <a href="/Patient/PatientDetailsEditGet/@Model.Id">Edit</a>
-        <p><span>@Html.DisplayNameFor(model => model.FirstName) : </span>@Model.FirstName</p>
-        <p><span>@Html.DisplayNameFor(model => model.LastName) : </span>@Model.LastName</p>
-        <p><span>@Html.DisplayNameFor(model => model.Gender) : </span>@Model.Gender</p>
-        <p><span>@Html.DisplayNameFor(model => model.Age) : </span>@Model.Age</p>
-        <p><span>@Html.DisplayNameFor(model => model.BirthDate) : </span>@Model.BirthDate</p>
-        <p><span>@Html.DisplayNameFor(model => model.HomeAddress) : </span>@Model.HomeAddress</p>
-        <p><span>@Html.DisplayNameFor(model => model.PhoneNumber) : </span>@Model.PhoneNumber</p>
-
-
-        <p>
-            <a href="@Url.Action("NoteDetailsCreate", "Notes", new { id = Model.Id })">Create Note</a>
-        </p>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Last Note Update</th>
-                    <th>Comment</th>
-                    <th>Triggers</th>
-                    <th>Risk Level</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var note in Model.Notes)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(noteItem => note.LastUpdatedDate)</td>
-                        <td>@Html.DisplayFor(noteItem => note.Comment)</td>
-                        <td>
-                            @foreach (var trigger in note.Triggers)
-                            {
-                                <p>@trigger.TriggerName</p>
-                            }
-                        </td>
-                        <td>@Html.DisplayFor(noteItem => note.RiskLevel)</td>
-                        <td>
-                            <p>
-                                <a href="@Url.Action("NoteDetails", "Notes", new { id = note.NoteId })">View Details</a>
-                            </p>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<main class="patient-detail-main">
+    <div class="flex-row-left-center">
+        <h2 class="patient-name">@Model.FirstName @Model.LastName</h2>
+        <a class="pen" href="/Patient/PatientDetailsEditGet/@Model.Id">
+            <i class="fa-solid fa-pen"></i>
+        </a>
     </div>
-</div>
+    <hr />
+
+    <div class="detail-page">
+        <div>
+            <h3 class="patient-attribute">Details</h3>
+            <div class="flex-row-center-center">
+                <div style="width: 50%;">
+                    <p><span>@Html.DisplayNameFor(model => model.FirstName) : </span>@Model.FirstName</p>
+                    <p><span>@Html.DisplayNameFor(model => model.LastName) : </span>@Model.LastName</p>
+                    <p><span>@Html.DisplayNameFor(model => model.Gender) : </span>@Model.Gender</p>
+                    <p><span>@Html.DisplayNameFor(model => model.Age) : </span>@Model.Age</p>
+                </div>
+                <div style="width: 50%;">
+                    <p><span>@Html.DisplayNameFor(model => model.BirthDate) : </span>@Model.BirthDate</p>
+                    <p><span>@Html.DisplayNameFor(model => model.HomeAddress) : </span>@Model.HomeAddress</p>
+                    <p><span>@Html.DisplayNameFor(model => model.PhoneNumber) : </span>@Model.PhoneNumber</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="flex-row-left-center">
+                <h3 class="patient-attribute">Notes</h3>
+                <a href="@Url.Action("NoteDetailsCreate", "Notes", new { id = Model.Id })" class="add-new-note flex-row-center-center">+</a>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="note-header">
+                        <th class="note-header-text">Last Update</th>
+                        <th class="note-header-text">Comment</th>
+                        <th class="note-header-text">Triggers</th>
+                        <th class="note-header-text">Risk Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var note in Model.Notes)
+                    {
+                        <tr class="note-data" onclick="window.location.href = '@Url.Action("NoteDetails", "Notes", new { id = note.NoteId })'">
+                            <td>@Html.DisplayFor(noteItem => note.LastUpdatedDate)</td>
+                            <td>@Html.DisplayFor(noteItem => note.Comment)</td>
+                            <td>
+                                @foreach (var trigger in note.Triggers)
+                                {
+                                    <p>@trigger.TriggerName</p>
+                                }
+                            </td>
+                            <td>
+                                <p>
+                                    @if (note.RiskLevel == "Borderline")
+                                    {
+                                        <div class="risk-level borderline">
+                                            @Html.DisplayFor(noteItem => note.RiskLevel)
+                                        </div>
+                                    }
+                                    else if (note.RiskLevel == "InDanger")
+                                    {
+                                        <div class="risk-level inDanger">
+                                            @Html.DisplayFor(noteItem => note.RiskLevel)
+                                        </div>
+                                    }
+                                    else if (note.RiskLevel == "EarlyOnset")
+                                    {
+                                        <div class="risk-level earlyOnSet">
+                                            @Html.DisplayFor(noteItem => note.RiskLevel)
+                                        </div>
+                                    }
+                                    else if (note.RiskLevel == "None")
+                                    {
+                                        <div>
+                                            @Html.DisplayFor(noteItem => note.RiskLevel)
+                                        </div>
+                                    }
+                                </p>
+                                
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
