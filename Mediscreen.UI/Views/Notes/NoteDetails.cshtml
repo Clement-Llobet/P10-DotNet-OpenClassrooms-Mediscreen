@@ -5,22 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Note detail</h1>
-
-<div class="detail-page">
-    <div class="detail">
-        <h2>Details</h2>
-        <a href="/Notes/NoteDetailsEdit/@Model.NoteId">Edit</a>
-        <p><span>@Html.DisplayNameFor(model => model.Comment) : </span>@Model.Comment</p>
-        <p><span>@Html.DisplayNameFor(model => model.PatientId) : </span>@Model.PatientId</p>
-        <p><span>@Html.DisplayNameFor(model => model.CreatedDate) : </span>@Model.CreatedDate</p>
-
-        <p>Triggers</p>
-        <ul>
-            @foreach (var trigger in Model.Triggers)
-            {
-                <li>@trigger.TriggerName</li>
-            }
-        </ul>
+<main class="details-main">
+    <div class="flex-row-left-center">
+        <h2>Note detail</h2>
+        <a class="pen" href="/Notes/NoteDetailsEdit/@Model.NoteId">
+            <i class="fa-solid fa-pen"></i>
+        </a>
     </div>
-</div>
+    <hr />
+
+    <div class="detail-page">
+        <div class="flex-row-center-center">
+            <div style="width: 50%;">
+                <p><span>@Html.DisplayNameFor(model => model.Comment) : </span>@Model.Comment</p>
+            </div>
+            <div style="width: 50%;">
+                <p>Triggers</p>
+                <ul>
+                    @foreach (var trigger in Model.Triggers)
+                    {
+                        <li>@trigger.TriggerName</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>

@@ -5,21 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Patient List</h1>
+<main class="text-center" style="margin: 1% 2%;">
+    <h1 class="display-3">Patients</h1>
 
-    <p>
-        <a href="~/Patient/CreatePatient" class="btn btn-primary">Create new patient</a>
-    </p>
-    <div class="card-deck d-flex flex-row justify-content align-items">
+    <div>
+        <a href="~/Patient/CreatePatient" class="add-new-patient">
+            +
+        </a>
+    </div>
+    <section class="card-deck patient-list">
         @foreach (var patient in Model)
         {
-            <div class="card w-25">
-                <div class="card-body">
-                    <h5 class="card-title">@patient.FirstName @patient.LastName</h5>
-                    <a href="@Url.Action("PatientDetails", "Patient", new { id = patient.Id })" class="btn btn-primary">View Details</a>
+            <a 
+                href="@Url.Action("PatientDetails", "Patient", new { id = patient.Id })"
+                class="patient-card w-25"
+            >
+                <div>
+                    <h5 class="card-title">@patient.FirstName @patient.LastName</h5>  
                 </div>
-            </div>
+            </a>
         }
-    </div>
-</div>
+    </section>
+</main>

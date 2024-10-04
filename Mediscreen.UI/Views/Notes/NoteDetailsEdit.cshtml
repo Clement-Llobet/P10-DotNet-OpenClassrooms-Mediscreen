@@ -5,30 +5,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit Patient's note @Model.NoteId</h1>
+<main class="create-or-edit-item">
+    <h1>Edit Patient's note</h1>
 
-<div class="detail-page">
-    <div class="detail">
-        <form asp-action="NoteDetailsEditPut" asp-controller="Notes" method="post">
-            <input name="_RequestVerificationToken" type="hidden" />
-            <input type="hidden" name="NoteId" value="@Model.NoteId" />
-            <input type="hidden" name="PatientId" value="@Model.PatientId" />
-            <textarea type="text" name="Comment">@Model.Comment</textarea> />
-            <input type="hidden" name="CreatedDate" value="@Model.CreatedDate" />
-            <input type="hidden" name="Practitioner" value="@Model.Practitioner" />
+    <div class="detail-page">
+        <div class="detail">
+            <form asp-action="NoteDetailsEditPut" asp-controller="Notes" method="post" class="create-or-edit-item">
+                <input name="_RequestVerificationToken" type="hidden" />
+                <input type="hidden" name="NoteId" value="@Model.NoteId" />
+                <input type="hidden" name="PatientId" value="@Model.PatientId" />
+                <textarea type="text" name="Comment">@Model.Comment</textarea> />
+                <input type="hidden" name="CreatedDate" value="@Model.CreatedDate" />
+                <input type="hidden" name="Practitioner" value="@Model.Practitioner" />
 
-            <p>
-                Does the patient has any of the following triggers?<br />
-                @foreach (var trigger in Model.Triggers)
-                {
-                    <input type="checkbox" name="Triggers" value="@trigger.TriggerId" />
-                    <label for="@trigger.TriggerName">@trigger.TriggerName</label>
+                <div>
+                    <p>Does the patient has any of the following triggers?</p>
+                    @if (Model.Triggers != null && Model.Triggers.Any())
+                    {
+                        @foreach (var trigger in Model.Triggers)
+                        {
+                            <input type="checkbox" name="Triggers" value="@trigger.TriggerId" />
+                            <label for="@trigger.TriggerName">@trigger.TriggerName</label>
 
-                    <br />
-                }
-            </p>
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        <p>No triggers found</p>
+                    }
+                </div>
 
-            <button>Submit</button>
-        </form>
+                <button class="create-or-edit-buttons">Submit</button>
+            </form>
+        </div>
     </div>
-</div>
+</main>

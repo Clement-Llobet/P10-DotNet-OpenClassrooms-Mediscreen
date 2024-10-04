@@ -5,20 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create new patient</h1>
+<main class="create-or-edit-item">
+    <h2 class="patient-name">Create new patient</h2>
 
-<div class="detail-page">
-    <div class="detail">
-        <form asp-action="CreatePatientPost" asp-controller="Patient" method="post">
-            <input name="_RequestVerificationToken" type="hidden" />
-            <input type="text" name="FirstName" placeholder="FirstName" />
-            <input type="text" name="LastName" placeholder="LastName" />
-            <input type="text" name="BirthDate" placeholder="BirthDate" />
-            <input type="text" name="Gender" placeholder="Gender" />
-            <input type="text" name="HomeAddress" placeholder="HomeAddress" />
-            <input type="text" name="PhoneNumber" placeholder="PhoneNumber" />
+    <div class="detail-page">
+        <div class="detail">
+            <form asp-action="CreatePatientPost" asp-controller="Patient" method="post" class="create-or-edit-item">
+                <input class="create-or-edit-inputs" name="_RequestVerificationToken" type="hidden" />
+                <input class="create-or-edit-inputs" type="text" name="FirstName" placeholder="FirstName" />
+                <input class="create-or-edit-inputs" type="text" name="LastName" placeholder="LastName" />
+                <input class="create-or-edit-inputs" type="text" name="BirthDate" placeholder="BirthDate" />
+                <input class="create-or-edit-inputs" type="text" name="Gender" placeholder="Gender" />
+                <input class="create-or-edit-inputs" type="text" name="HomeAddress" placeholder="HomeAddress" />
+                <input class="create-or-edit-inputs" type="text" name="PhoneNumber" placeholder="PhoneNumber" />
 
-            <button>Submit</button>
-        </form>
+                <button class="create-or-edit-buttons">Submit</button>
+            </form>
+        </div>
     </div>
-</div>
+</main>
