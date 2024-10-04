@@ -1,13 +1,19 @@
-﻿using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+#nullable disable
+
+using System;
+using System.Text;
+using System.Threading.Tasks;
+using Mediscreen.Infrastructure.SqlServerDatabase.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
 
-namespace Mediscreen.UI.Views.Account
+namespace Mediscreen.UI.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
@@ -65,7 +71,7 @@ namespace Mediscreen.UI.Views.Account
                     "/Account/ConfirmEmail",
                     pageHandler: null,
                     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    protocol: Request.Scheme)!;
+                    protocol: Request.Scheme);
             }
 
             return Page();
