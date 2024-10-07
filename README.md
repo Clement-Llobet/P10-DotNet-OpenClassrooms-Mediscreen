@@ -15,18 +15,24 @@ This document provides detailed instructions for deploying and running the Medis
 Ensure that the `mongodb_connection_string` secret is created and available. You can do this with the following command:  
    `echo "mongodb+srv://<USERNAME>:<PASSWORD>@mediscreen-p10-dotnet-o.izgrecn.mongodb.net/?retryWrites=true&w=majority" | docker secret create mongodb_connection_string -`
 
-3. **Build Docker Images.**  
+3. **Fill appsettings.json.**
+Create an `appsettings.Development.json` file in both `mediscreen.api` and `mediscreen.ui`:
+- SqlServerContext: add the database informations in the connection string.
+- MongoDb: add the connection string to your MongoDb database.
+- Redis: add the redis container name and its exposed port
+
+5. **Build Docker Images.**  
 You need to build the images for the `mediscreen.api` and `mediscreen.ui` services from their respective Dockerfiles. Make sure you are in the directory containing the `docker-compose.yml` file.  
    `docker-compose build`
-
-4. **Start the Services.**. 
+ 
+6. **Start the Services.**  
 Use the following command to start all the services defined in the `docker-compose.yml` file:  
    `docker-compose up`  
 
-You can also add `-d` to run the containers in detached mode:  
+   You can also add `-d` to run the containers in detached mode:  
    `docker-compose up -d` 
 
-5. **Access the Services.**  
+7. **Access the Services.**  
 Once the services are up and running, you can access:
 - API: http://localhost:65255
 - UI: http://localhost:65258
