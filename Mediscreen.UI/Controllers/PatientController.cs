@@ -5,16 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mediscreen.UI.Controllers;
 
-public class PatientController : Controller
+public class PatientController(IPatientService patientService, INotesService noteService) : Controller
 {
-    private readonly IPatientService _patientService;
-    private readonly INotesService _noteService;
-
-    public PatientController(IPatientService patientService, INotesService noteService)
-    {
-        _patientService = patientService;
-        _noteService = noteService;
-    }
+    private readonly IPatientService _patientService = patientService;
+    private readonly INotesService _noteService = noteService;
 
     // GET: PatientController
     public async Task<ActionResult> Index()

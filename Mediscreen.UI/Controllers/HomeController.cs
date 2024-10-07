@@ -3,14 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mediscreen.UI.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(IPatientService patientService) : Controller
     {
-        private readonly IPatientService _patientService;
-
-        public HomeController(IPatientService patientService)
-        {
-            _patientService = patientService;
-        }
+        private readonly IPatientService _patientService = patientService;
 
         // GET: HomeController
         public async Task<ActionResult> Index()

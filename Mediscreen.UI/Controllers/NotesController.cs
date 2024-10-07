@@ -7,18 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mediscreen.UI.Controllers;
 
-public class NotesController : Controller
+public class NotesController(INotesService noteService, ITriggersService triggersService, UserManager<User> userManager) : Controller
 {
-    private readonly INotesService _noteService;
-    private readonly ITriggersService _triggersService;
-    private readonly UserManager<User> _userManager;
-
-    public NotesController(INotesService noteService, ITriggersService triggersService, UserManager<User> userManager)
-    {
-        _noteService = noteService;
-        _triggersService = triggersService;
-        _userManager = userManager;
-    }
+    private readonly INotesService _noteService = noteService;
+    private readonly ITriggersService _triggersService = triggersService;
+    private readonly UserManager<User> _userManager = userManager;
 
     // GET: NotesController/Details/5
     public async Task<ActionResult> NoteDetails(int id)
