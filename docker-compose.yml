@@ -15,10 +15,7 @@ services:
   mediscreen.mongodbclient:
     container_name: mediscreen.mongodbclient
     image: mongo
-    # secrets:
-    #   - mongodb_connection_string
     environment:
-      # - ConnectionStrings__MongoDb_FILE=/run/secrets/mongodb_connection_string
       - mongodb+srv://Cl3m3nt:QQJqZGSC66hZ8jrW@mediscreen-p10-dotnet-o.izgrecn.mongodb.net/?retryWrites=true&w=majority&appName=Mediscreen-P10-DotNet-OpenClassrooms-Cluster
     volumes:
       - mongodb_data:/mongo/data:/data/db
